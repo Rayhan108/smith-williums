@@ -31,6 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${aboreto.variable} ${nunito.variable} antialiased bg-[#EAECEE]`}
+        cz-shortcut-listen="true"
       >
         {/* <Providers> */}
           <AntdRegistry>{children}</AntdRegistry>

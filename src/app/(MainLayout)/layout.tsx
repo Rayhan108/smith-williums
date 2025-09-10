@@ -2,15 +2,12 @@ import Footer from "@/Component/Shared/Footer";
 import { Navbar } from "@/Component/Shared/Navbar";
 
 
-
-const MainLayout = ({ children }: Readonly<{
-  children: React.ReactNode;
-}>) => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <div>
-        <div className="min-h-screen ">
           <Navbar />
+        <div className="min-h-screen ">
           {children}
         </div>
         <div>
