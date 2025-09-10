@@ -48,7 +48,7 @@ export default function Banner() {
         <div className="relative md:flex flex-1 items-center justify-center px-6 lg:px-12 md:bottom-28 lg:bottom-0  hidden">
           <div className="relative h-[500px] w-full max-w-xl">
             {/* Decorative Pattern (behind) */}
-            <div className="h-96  w-72   lg:right-0 md:left-44 xl:right-0 2xl:right-12 relative top-48 lg:top-64">
+            <div className="h-96  w-72   lg:right-0 md:-right-44 xl:right-0 2xl:right-12 relative top-48 lg:top-64">
               <Image
                 src={vector}
                 alt="Decorative Pattern"
