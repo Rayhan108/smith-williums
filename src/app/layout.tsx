@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${aboreto.variable} ${nunito.variable} antialiased bg-[#EAECEE]`}
+        className={`${aboreto.variable} ${nunito.variable} antialiased bg-white`}
         cz-shortcut-listen="true"
       >
         {/* <Providers> */}

@@ -55,7 +55,7 @@ const experiences = [
 
 export default function ExperiencesSection() {
   return (
-    <section className="bg-gray-50 py-16 px-6 font-nunito mb-5">
+    <section className=" py-16 px-6 font-nunito mb-5">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
@@ -91,7 +91,7 @@ export default function ExperiencesSection() {
           >
             {experiences.map((experience) => (
               <SwiperSlide key={experience.id}>
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col h-[520px]  mb-12">
+                <div className=" rounded-2xl shadow-lg overflow-hidden flex flex-col h-[520px]  mb-12">
                   {/* Experience Image */}
                   <div className="relative h-64 overflow-hidden">
                     <Image
