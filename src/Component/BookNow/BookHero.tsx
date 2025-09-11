@@ -1,77 +1,93 @@
-"use client"
-import { useState } from "react"
-import { X, ChevronLeft, ChevronRight, Share2, Camera, MapPin, Star } from "lucide-react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
-import Image from "next/image"
-import { FaFacebook, FaSquareWhatsapp } from "react-icons/fa6"
-import camel from '@/assests/dumba.png'
-import hillCar from '@/assests/hill-car.jpg'
-import tea from '@/assests/tea.jpg'
-import cofee from '@/assests/cofee.png'
-import bellyDance from '@/assests/belly-dance.jpg'
-import culture from '@/assests/culture.jpg'
-import camping from '@/assests/camping.png'
-import nightCamp from '@/assests/night-camp.jpg'
-import sandRide from '@/assests/sand-ride.jpg'
-import bikeRide from '@/assests/bike-ride.jpg'
+"use client";
+import { useState } from "react";
+import { X, ChevronLeft, ChevronRight, Share2, Camera, MapPin, Star } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Image from "next/image";
+import { FaFacebook, FaSquareWhatsapp } from "react-icons/fa6";
 
-
+import hillCar from "@/assests/hill-car.jpg";
+import tea from "@/assests/tea.jpg";
+import cofee from "@/assests/cofee.png";
+import bellyDance from "@/assests/belly-dance.jpg";
+import culture from "@/assests/culture.jpg";
+import camping from "@/assests/camping.png";
+import nightCamp from "@/assests/night-camp.jpg";
+import sandRide from "@/assests/sand-ride.jpg";
+import bikeRide from "@/assests/bike-ride.jpg";
+import camel from '@/assests/camel.jpg'
+import car from '@/assests/car.jpg'
+import lady from '@/assests/lady.jpg'
+import couple from '@/assests/couple.jpg'
 
 const tourImages = [
   camel,
+  car,
+  lady,
+  couple,
   hillCar,
   tea,
   cofee,
- bellyDance,
- culture,
- camping,
- nightCamp,sandRide,
- bikeRide
-]
+  bellyDance,
+  culture,
+  camping,
+  nightCamp,
+  sandRide,
+  bikeRide,
+];
 
 const shareOptions = [
   { name: "WhatsApp", icon: <FaSquareWhatsapp className="text-green-500" /> },
   { name: "Facebook", icon: <FaFacebook className="text-blue-500" /> },
   { name: "Copy Link", icon: "🔗" },
-]
+];
 
 export default function BookHero() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isShareOpen, setIsShareOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   const handleShare = (platform: string) => {
-    const url = window.location.href
-    const title = "57 HERITAGE DESERT EXPERIENCE"
+    const url = window.location.href;
+    const title = "57 HERITAGE DESERT EXPERIENCE";
 
     switch (platform) {
       case "WhatsApp":
-        window.open(`https://wa.me/?text=${encodeURIComponent(title + " " + url)}`)
-        break
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`
+        );
+        break;
       case "Facebook":
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`)
-        break
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            url
+          )}`
+        );
+        break;
       case "Twitter":
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`)
-        break
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            title
+          )}&url=${encodeURIComponent(url)}`
+        );
+        break;
       case "Instagram":
-        navigator.clipboard.writeText(url)
-        alert("Link copied! You can paste it in Instagram.")
-        break
+        navigator.clipboard.writeText(url);
+        alert("Link copied! You can paste it in Instagram.");
+        break;
       case "Copy Link":
-        navigator.clipboard.writeText(url)
-        alert("Link copied to clipboard!")
-        break
+        navigator.clipboard.writeText(url);
+        alert("Link copied to clipboard!");
+        break;
     }
-    setIsShareOpen(false)
-  }
+    setIsShareOpen(false);
+  };
 
   return (
     <>
-      <div className="bg-white border-b border-gray-100 px-4 py-6 md:px-8 mt-12">
+      <div className="bg-white border-b border-gray-100 px-4 py-6 md:px-8 mt-12 ">
         <div className="max-w-7xl mx-auto">
           {/* Header Row */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
@@ -108,7 +124,9 @@ export default function BookHero() {
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3 transition-colors"
                       >
                         <span className="text-lg">{option.icon}</span>
-                        <span className="text-sm font-medium text-gray-700">{option.name}</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          {option.name}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -127,7 +145,10 @@ export default function BookHero() {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-orange-400 text-orange-400" />
+                  <Star
+                    key={i}
+                    className="w-4 h-4 fill-orange-400 text-orange-400"
+                  />
                 ))}
               </div>
               <button className="text-orange-500 hover:text-orange-600 text-sm font-medium transition-colors">
@@ -138,75 +159,58 @@ export default function BookHero() {
         </div>
       </div>
 
+      {/* Image Grid */}
+      <div className=" p-4 max-w-7xl  mx-auto">
+        {/* Large Image (Car in Desert) */}
+        <div className="grid grid-cols-2">
+          <Image
+            src={car}
+            alt="Car in Desert"
+            width={500}
+            height={500}
+            className=" object-cover rounded-xl w-[600px] h-[430px]"
+          />
+        {/* Small Image 1 */}
+        <div>
+          <Image
+            src={camel}
+            alt="Camel in Desert"
+            width={500}
+            height={500}
+            className="w-[100%] h-[200px] object-cover rounded-xl"
+          />
+        <div className="grid grid-cols-2 gap-3">
+            <Image
+            src={lady}
+            alt="Camel in Desert"
+            width={500}
+            height={500}
+            className="w- mt-5 object-cover rounded-xl"
+          />
+              <Image
+            src={couple}
+            alt="Camel in Desert"
+            width={500}
+            height={500}
+            className=" mt-5 object-cover rounded-xl"
+          />
+        </div>
+      
+        </div>
+        </div>
 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-w-full mx-auto">
-      {/* Large Image (Car in Desert) */}
-      <div className="col-span-1 md:col-span-2">
-        <Image 
-          src="/path/to/your/car-image.jpg" 
-          alt="Car in Desert" 
-          width={1200} 
-          height={800} 
-          className="w-full h-auto object-cover"
-        />
+     
       </div>
-
-      {/* Small Image (Camel in Desert) */}
-      <div>
-        <Image 
-          src="/path/to/your/camel-image.jpg" 
-          alt="Camel in Desert" 
-          width={600} 
-          height={400} 
-          className="w-full h-auto object-cover"
-        />
-      </div>
-
-      {/* Small Image (Person Walking in Desert) */}
-      <div>
-        <Image 
-          src="/path/to/your/person-walking-image.jpg" 
-          alt="Person walking in Desert" 
-          width={600} 
-          height={400} 
-          className="w-full h-auto object-cover"
-        />
-      </div>
-
-      {/* Small Image (Couple in Desert) */}
-      <div>
-        <Image 
-          src="/path/to/your/couple-dancing-image.jpg" 
-          alt="Couple in Desert" 
-          width={600} 
-          height={400} 
-          className="w-full h-auto object-cover"
-        />
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       {/* Small Centered Photo Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-opacity-60 z-50 flex items-center justify-center">
           <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-3xl h-auto p-4">
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-3 right-3 z-10 p-2 bg-black bg-opacity-40 rounded-full text-white hover:bg-opacity-70 transition-colors"
+              className="absolute top-3 right-3 z-10 p-2  bg-opacity-40 rounded-full text-white hover:bg-opacity-70 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -220,8 +224,10 @@ export default function BookHero() {
               }}
               pagination={{
                 clickable: true,
-                bulletClass: "swiper-pagination-bullet !bg-gray-400 !opacity-50",
-                bulletActiveClass: "swiper-pagination-bullet-active !bg-orange-500 !opacity-100",
+                bulletClass:
+                  "swiper-pagination-bullet !bg-gray-400 !opacity-50",
+                bulletActiveClass:
+                  "swiper-pagination-bullet-active !bg-orange-500 !opacity-100",
               }}
               className="w-full h-[400px] rounded-xl overflow-hidden"
               spaceBetween={20}
@@ -255,7 +261,12 @@ export default function BookHero() {
       )}
 
       {/* Share Modal Backdrop */}
-      {isShareOpen && <div className="fixed inset-0 z-40" onClick={() => setIsShareOpen(false)} />}
+      {isShareOpen && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setIsShareOpen(false)}
+        />
+      )}
     </>
-  )
+  );
 }
