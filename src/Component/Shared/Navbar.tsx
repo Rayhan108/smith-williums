@@ -7,8 +7,10 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation"; // Import usePathname hook
 import logo from '@/assests/logo.png';
 
+
 const navItems = [
   { name: "Home", href: "/" },
+  { name: "Category", href: "/category" },
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
