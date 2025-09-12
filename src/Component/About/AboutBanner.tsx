@@ -1,7 +1,7 @@
 import { FaChevronRight } from "react-icons/fa"
 import about from '@/assests/aboutHero.jpg'
 export default function AboutBanner() {
-  const title = "Heritage Desert Experience"
+  const title = "About"
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
