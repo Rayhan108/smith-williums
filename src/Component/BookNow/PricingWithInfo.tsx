@@ -115,7 +115,7 @@ const PricingWithInfo = () => {
           with our Heritage Safari Dubai. Journey into the golden dunes in an open-top vintage Land Rover just like the
           desert explorers once did. Witness the awe-inspiring art of falconry, where skilled falconers showcase the
           grace and power of these magnificent birds. Enjoy an authentic camel ride through the serene desert landscape.
-          As the sun sets over the desert, relax in a traditional Bedouin-style camp, where you'll be served a lavish
+          As the sun sets over the desert, relax in a traditional Bedouin-style camp, where you&apos;ll be served a lavish
           4-course dinner under a canopy of stars. With live cultural performances, henna painting, and aromatic shisha,
           this experience blends adventure, culture, and luxury into one unforgettable evening.
         </div>

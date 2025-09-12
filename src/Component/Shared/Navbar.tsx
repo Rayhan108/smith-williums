@@ -25,11 +25,30 @@ export function Navbar() {
   const pathname = usePathname(); // Use usePathname to get the current path
 
   // Function to apply active class based on the current path
-  const getLinkClass = (href: string) => {
-    return pathname === href
-      ? "text-[#FB5A10] font-medium transition-colors"
-      : "text-white hover:text-orange-600 font-medium transition-colors";
-  };
+  // const getLinkClass = (href: string) => {
+  //   return pathname === href
+  //     ? "text-[#FB5A10] font-medium transition-colors"
+  //     : "text-black hover:text-orange-600 font-medium transition-colors";
+  // };
+// Function to apply active class based on the current path
+const getLinkClass = (href: string) => {
+  // All routes where category should stay active
+  const categoryRoutes = [
+    "/category",
+    "/payment",
+    "/bookNow",
+    "/personalInfo",
+    "/otpVerification",
+  ];
+
+  if (href === "/category" && categoryRoutes.includes(pathname)) {
+    return "text-[#FB5A10] font-medium transition-colors"; // active
+  }
+
+  return pathname === href
+    ? "text-[#FB5A10] font-medium transition-colors font-bold"
+    : "text-black hover:text-orange-600 font-medium transition-colors font-bold";
+};
 
   // Handle selecting a currency
   const handleCurrencySelect = (currency: string) => {
