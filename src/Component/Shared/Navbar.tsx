@@ -80,7 +80,7 @@ const getLinkClass = (href: string) => {
 
   return (
     <div>
-      <nav className="w-full px-4 py-3 font-aboreto fixed top-0 left-0 right-0 z-50">
+      <nav className="w-full px-4 py-3 font-aboreto fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/10 ">
         <div className="max-w-7xl mx-auto flex items-center justify-between ">
           {/* Logo */}
           <div className="flex items-center">

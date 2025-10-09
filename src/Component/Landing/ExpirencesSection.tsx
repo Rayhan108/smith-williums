@@ -1,59 +1,48 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination, Autoplay } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
-import desertCar from '@/assests/desert-car.jpg'
-import sunsetCar from '@/assests/sunset-car.jpg'
-import hillCar from '@/assests/hill-car.jpg'
-import Image from "next/image"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Image from "next/image";
+import Link from "next/link";
+import Head from "next/head";
 
-const experiences = [
-  {
-    id: 1,
-    title: "57 HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Heritage Safari Dubai: vintage Land Rovers, falconry, camel riders, and a 4-course dinner. Book tour adventure today!",
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-    image: desertCar,
-  },
-  {
-    id: 2,
-    title: "57 PREMIUM DESERT SAFARI WITH DUNE BASHING",
-    description:
-      "Experience the ultimate Desert Safari Dubai: dune bashing, camel rides, and a 4-courses dinner. Book your adventure today!",
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-    image: sunsetCar,
-  },
-  {
-    id: 3,
-    title: "57 DUNE BASHING + HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Desert Safari Dubai: Luxury transfers, vintage Land Rovers, camel rides, falconry, and a 4-course dinner. Book now!",
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-    image: hillCar,
-  },
-  {
-    id: 4,
-    title: "57 DUNE BASHING + HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Desert Safari Dubai: Luxury transfers, vintage Land Rovers, camel rides, falconry, and a 4-course dinner. Book now!",
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-    image: hillCar,
-  },
-]
+export default function ExperiencesSection({ packages }: any) {
 
-export default function ExperiencesSection() {
+    /* SEO Meta Tags */
+
+  {
+    packages?.map((experience: any) => (
+      <Head key={experience.id}>
+        <title>{experience.title} - Wanderlust Adventures</title>
+        <meta name="description" content={experience.description} />
+        <meta
+          name="keywords"
+          content="desert safari, adventure, travel, experiences, tours, Dubai"
+        />
+        <meta
+          property="og:title"
+          content={`${experience.title} - Wanderlust Adventures`}
+        />
+        <meta property="og:description" content={experience.description} />
+        <meta
+          property="og:image"
+          content={experience.images[0]} // Use the first image of the experience or a default one
+        />
+        <meta
+          property="og:url"
+          content={`${process.env.SERVER_URL}/package/single-package/${experience._id}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+      </Head>
+    ));
+  }
+
+  console.log("expirences------>", packages);
   return (
     <section className=" py-16 px-6 font-nunito mb-5">
       <div className="max-w-7xl mx-auto">
@@ -89,13 +78,13 @@ export default function ExperiencesSection() {
             }}
             className="experiences-swiper"
           >
-            {experiences.map((experience) => (
+            {packages?.map((experience: any) => (
               <SwiperSlide key={experience.id}>
                 <div className=" rounded-2xl shadow-lg overflow-hidden flex flex-col h-[520px]  mb-12">
                   {/* Experience Image */}
                   <div className="relative h-64 overflow-hidden">
                     <Image
-                      src={experience.image || "/placeholder.svg"}
+                      src={experience.coverImage}
                       alt={experience.title}
                       width={500}
                       height={500}
@@ -119,7 +108,7 @@ export default function ExperiencesSection() {
                     <div className="mb-6 flex items-center gap-3">
                       <div className="flex-col flex items-center gap-2 mb-1">
                         <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                          {experience.discount} off
+                          {experience.discount}% off
                         </span>
                         <span className="text-gray-400 text-sm line-through">
                           {experience.originalPrice}
@@ -137,9 +126,11 @@ export default function ExperiencesSection() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3 mt-auto">
-                      <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
-                        Book Now
-                      </button>
+                      <Link href={`/bookNow/${experience?._id}`}>
+                        <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
+                          Book Now
+                        </button>
+                      </Link>
                       <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
                         WhatsApp
                         <svg
@@ -158,7 +149,7 @@ export default function ExperiencesSection() {
           </Swiper>
 
           {/* Custom Navigation Arrows */}
-          <div className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+          <div className="swiper-button-prev-custom absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
             <svg
               className="w-6 h-6 text-gray-600"
               fill="none"
@@ -173,7 +164,7 @@ export default function ExperiencesSection() {
               />
             </svg>
           </div>
-          <div className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+          <div className="swiper-button-next-custom absolute -right-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
             <svg
               className="w-6 h-6 text-gray-600"
               fill="none"
@@ -191,5 +182,5 @@ export default function ExperiencesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
