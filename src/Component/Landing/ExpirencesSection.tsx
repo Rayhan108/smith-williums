@@ -10,12 +10,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 
+
 export default function ExperiencesSection({ packages }: any) {
 
     /* SEO Meta Tags */
 
   {
-    packages?.map((experience: any) => (
+    packages?.result.map((experience: any) => (
       <Head key={experience.id}>
         <title>{experience.title} - Wanderlust Adventures</title>
         <meta name="description" content={experience.description} />
@@ -30,7 +31,7 @@ export default function ExperiencesSection({ packages }: any) {
         <meta property="og:description" content={experience.description} />
         <meta
           property="og:image"
-          content={experience.images[0]} // Use the first image of the experience or a default one
+          content={experience.coverImage} // Use the first image of the experience or a default one
         />
         <meta
           property="og:url"
@@ -78,7 +79,7 @@ export default function ExperiencesSection({ packages }: any) {
             }}
             className="experiences-swiper"
           >
-            {packages?.map((experience: any) => (
+            {packages?.result?.map((experience: any) => (
               <SwiperSlide key={experience.id}>
                 <div className=" rounded-2xl shadow-lg overflow-hidden flex flex-col h-[520px]  mb-12">
                   {/* Experience Image */}

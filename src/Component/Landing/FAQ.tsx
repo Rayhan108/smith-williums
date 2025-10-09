@@ -59,7 +59,7 @@ console.log("FAQ-------------->",faq);
       </div>
 
       <div className="space-y-0 border-t border-border">
-        {faq?.map((faq:any, index:number) => (
+        {faq?.result?.map((faq:any, index:number) => (
           <div key={index} className="border-b border-border">
             <button
               onClick={() => toggleFAQ(index)}

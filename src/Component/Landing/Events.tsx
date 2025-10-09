@@ -46,7 +46,7 @@ export default function ExclusiveArrangements({events}:any) {
           }}
           className="arrangements-swiper"
         >
-          {events?.map((arrangement:any, index:number) => (
+          {events?.result?.map((arrangement:any, index:number) => (
             <SwiperSlide key={index}>
               <div className="relative font-nunito overflow-hidden rounded-2xl border-2 border-orange-400 group cursor-pointer transition-transform mb-8">
                 {/* Background Image and Gradient */}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -84,19 +85,28 @@ const tourPackages = [
   },
 ];
 
-export default function Packages() {
+export default function Packages({packages}:any) {
+      const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+console.log("packages------->",packages);
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentTours = tourPackages.slice(startIndex, endIndex);
+  const meta = packages?.meta;
+  // Use the 'limit' from meta for dynamic items per page
+  const limit = meta?.limit;
+  const totalItems = meta?.total;
 
+  // Calculate current items to show based on page and limit
+
+  const currentItems = packages?.result;
+    const onPageChange = (page: number) => {
+    setPage(page);
+  };
   return (
     <section className="pb-8 px-4 md:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="space-y-6">
-          {currentTours.map((tour) => (
+          {currentItems?.map((tour:any) => (
             <div
               key={tour.id}
               className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
@@ -171,12 +181,14 @@ export default function Packages() {
         {/* Pagination */}
         <div className="flex justify-center mt-12">
           <Pagination
-            current={currentPage}
-            total={tourPackages.length}
-            pageSize={itemsPerPage}
-            onChange={setCurrentPage}
-            showSizeChanger={false}
-            showQuickJumper={false}
+          current={page}
+          pageSize={limit} 
+          total={totalItems} 
+          onChange={onPageChange}
+          showSizeChanger={false}
+    
+          // Show the total number of pages (meta.totalPage)
+          pageSizeOptions={[limit?.toString()]}
         
             className="[&_.ant-pagination-item-active]:bg-orange-500 [&_.ant-pagination-item-active]:border-orange-500 [&_.ant-pagination-item-active_a]:text-white [&_.ant-pagination-item]:border-gray-300 [&_.ant-pagination-item_a]:text-gray-600 [&_.ant-pagination-prev]:text-gray-600 [&_.ant-pagination-next]:text-gray-600"
           />
