@@ -1,17 +1,35 @@
-import HeroSection from '@/Component/Category/Hero';
-import Packages from '@/Component/Category/Pakages';
-import { getAllPackage } from '@/utils/api/api';
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// app/(MainLayout)/category/page.tsx
+"use client";
 
-const Category = async() => {
-    const packages = await getAllPackage();
-    console.log("Packages:-----------><><><><><><------>", packages);
-    return (
-        <div>
-            <HeroSection/>
-            <Packages packages={packages}/>
-        </div>
-    );
+import Packages from "@/Component/Category/Pakages";
+import { getAllPackage } from "@/utils/api/api";
+import React, { useEffect, useState } from "react";
+
+const Category = () => {
+  const [packages, setPackages] = useState<any>({});
+  const [filters, setFilters] = useState({
+    activity: "",
+    availability: "",
+    child_min_age: "",
+    max_adult: "",
+    page: 1,
+  });
+
+  // Fetch packages whenever filters change
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getAllPackage(filters);
+      setPackages(res);
+    };
+    fetchData();
+  }, [filters]);
+
+  return (
+    <div>
+      <Packages packages={packages} setFilters={setFilters} />
+    </div>
+  );
 };
 
 export default Category;

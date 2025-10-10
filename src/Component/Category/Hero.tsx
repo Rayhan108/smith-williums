@@ -1,16 +1,26 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState } from "react"
 import { Calendar, ChevronDown,MountainSnow, Search, User } from "lucide-react"
 import { Modal } from "antd" // Import Ant Design Modal and Button
 import scene from '@/assests/scene.jpg'
+// src/types/activity.ts
+export enum Activity {
+  DUNE_BASHING = "Dune Bashing",
+  CAMEL_RIDE = "Camel Ride",
+  QUAD_BIKING = "Quad Biking",
+  DUNE_BUGGY_RIDE = "Dune Buggy Ride",
+  TEA_COFFEE_SOFT_DRINKS = "Tea, Coffee, & Soft Drinks",
+  HENNA_TATTOOS = "Henna Tattoos",
+  FIRE_SHOW = "Fire Show in the Desert",
+  ARABIC_COSTUMES = "Arabic Costumes",
+  SHISHA_SMOKING = "Shisha Smoking",
+  FALCON_PICTURES = "Falcon To Take Pictures",
+  SAND_BOARDING = "Sand-Boarding",
+  BELLY_DANCE_SHOW = "Belly Dance Show",
+}
 
-export default function HeroSection() {
-  const [selectedActivity, setSelectedActivity] = useState("Select Activity")
-  const [adults, setAdults] = useState(1)
-  const [children, setChildren] = useState(0)
-  const [selectedDate, setSelectedDate] = useState("")
-  const [isModalVisible, setIsModalVisible] = useState(false)
+export default function HeroSection({setIsModalVisible,isModalVisible,setSelectedDate,selectedDate,setChildCount,childCount,setAdults,adults,setSelectedActivity,selectedActivity,handleSearch}:any) {
+
 
   // Show modal
   const showModal = () => {
@@ -26,8 +36,8 @@ export default function HeroSection() {
   const incrementAdults = () => setAdults(adults + 1)
   const decrementAdults = () => setAdults(adults > 0 ? adults - 1 : 0)
 
-  const incrementChildren = () => setChildren(children + 1)
-  const decrementChildren = () => setChildren(children > 0 ? children - 1 : 0)
+  const incrementChildren = () => setChildCount(childCount + 1)
+  const decrementChildren = () => setChildCount(childCount > 0 ? childCount - 1 : 0)
 
   return (
     <section className="relative h-screen w-full overflow-hidden font-nunito">
@@ -65,17 +75,18 @@ export default function HeroSection() {
                 <label className="block text-sm font-medium text-gray-700 border-gray-400 border-r-1 px-3">Activity</label>
               <div className="flex-1">
                 <div className="relative">
-                  <select
-                    value={selectedActivity}
-                    onChange={(e) => setSelectedActivity(e.target.value)}
-                    className="w-full appearance-none bg-transparent text-gray-600 focus:outline-none px-3"
-                  >
-                    <option value="Select Activity">Select Activity</option>
-                    <option value="Desert Safari">Desert Safari</option>
-                    <option value="Camel Ride">Camel Ride</option>
-                    <option value="Dune Bashing">Dune Bashing</option>
-                    <option value="Quad Biking">Quad Biking</option>
-                  </select>
+             <select
+        value={selectedActivity}
+        onChange={(e) => setSelectedActivity(e.target.value)}
+        className="w-full appearance-none bg-transparent text-gray-600 focus:outline-none px-3"
+      >
+        <option value="">Select Activity</option>
+        {Object.values(Activity).map((activity) => (
+          <option key={activity} value={activity}>
+            {activity}
+          </option>
+        ))}
+      </select>
                   <ChevronDown className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 </div>
               </div>
@@ -115,7 +126,7 @@ export default function HeroSection() {
 
             {/* Search Button */}
             <div className="flex items-center justify-center p-2">
-              <button className="h-12 w-full rounded-md bg-orange-500 px-8 text-white hover:bg-orange-600 md:w-auto">
+              <button    onClick={handleSearch} className="h-12 w-full rounded-md bg-orange-500 px-8 text-white hover:bg-orange-600 md:w-auto">
                 <Search className="h-5 w-5" />
               </button>
             </div>
@@ -162,7 +173,7 @@ export default function HeroSection() {
       >
         -
       </button>
-      <span className="text-xl">{children}</span>
+      <span className="text-xl text-black">{childCount}</span>
       <button
         onClick={incrementChildren}
         className="text-orange-500 text-xl w-8 h-8 flex justify-center items-center border border-orange-500 rounded-full hover:bg-orange-100"

@@ -10,10 +10,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 
-
 export default function ExperiencesSection({ packages }: any) {
-
-    /* SEO Meta Tags */
+  /* SEO Meta Tags */
 
   {
     packages?.result.map((experience: any) => (
@@ -81,7 +79,7 @@ export default function ExperiencesSection({ packages }: any) {
           >
             {packages?.result?.map((experience: any) => (
               <SwiperSlide key={experience.id}>
-                <div className=" rounded-2xl shadow-lg overflow-hidden flex flex-col h-[520px]  mb-12">
+                <div className=" rounded-2xl shadow-lg overflow-hidden flex flex-col  h-[520px]  mb-12">
                   {/* Experience Image */}
                   <div className="relative h-64 overflow-hidden">
                     <Image
@@ -94,7 +92,7 @@ export default function ExperiencesSection({ packages }: any) {
                   </div>
 
                   {/* Card Content */}
-                  <div className="flex flex-col flex-1 p-6">
+                  <div className="flex flex-col flex-1 p-4">
                     {/* Title */}
                     <h3 className="text-lg font-bold text-orange-500 mb-3 leading-tight">
                       {experience.title}
@@ -106,33 +104,43 @@ export default function ExperiencesSection({ packages }: any) {
                     </p>
 
                     {/* Pricing */}
-                    <div className="mb-6 flex items-center gap-3">
-                      <div className="flex-col flex items-center gap-2 mb-1">
-                        <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                          {experience.discount}% off
-                        </span>
-                        <span className="text-gray-400 text-sm line-through">
-                          {experience.originalPrice}
-                        </span>
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-md text-orange-500">
-                          {experience.currentPrice}
-                        </span>
-                        <span className="text-gray-500 text-sm">
-                          / Person + VAT
-                        </span>
-                      </div>
+                    <div className="mb-6 flex flex-wrap items-baseline gap-2">
+                      {/* Discount badge */}
+                      <span className="bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                        {experience.discount}% off
+                      </span>
+                      {/* Original price (strikethrough) */}
+                      <span className="text-gray-400 text-sm line-through ml-2">
+                        {experience?.original_price?.amount}
+                      </span>
+                      {/* Discounted price */}
+                      <span className="text-lg font-semibold text-orange-500">
+                        {experience?.discount_price?.amount}
+                      </span>
+
+                      {/* Price suffix */}
+                      <span className="text-gray-500 text-sm">
+                        / Person + VAT
+                      </span>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex gap-3 mt-auto">
-                      <Link href={`/bookNow/${experience?._id}`}>
-                        <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
+                      {/* Book Now */}
+                      <Link
+                        href={`/bookNow/${experience?._id}`}
+                        className="flex-1"
+                      >
+                        <div className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center">
                           Book Now
-                        </button>
+                        </div>
                       </Link>
-                      <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+
+                      {/* WhatsApp */}
+                      <button
+                        type="button"
+                        className="flex-1 w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+                      >
                         WhatsApp
                         <svg
                           className="w-4 h-4"

@@ -5,90 +5,19 @@ import { useState } from "react";
 import { Pagination } from "antd";
 import {  MountainSnow, Phone } from "lucide-react";
 import Image from "next/image";
-import camel from "@/assests/dumba.png";
-import hillCar from "@/assests/hill-car.jpg";
-import camping from "@/assests/camping.png";
 
-import sandRide from "@/assests/sand-ride.jpg";
-import bikeRide from "@/assests/bike-ride.jpg";
-import Link from "next/link";
-const tourPackages = [
-  {
-    id: 1,
-    title: "57 HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Heritage Safari Dubai: vintage Land Rovers,falconry,camel riders, and a 4-course dinner. Book tour adventure today!",
-    image: camel,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 2,
-    title: "57 PREMIUM DESERT SAFARI WITH DUNE BASHING",
-    description:
-      "Experience the ultimate Desert Safari Dubai: dune bashing, camel rides, and a 4-course dinner. Book your adventure today!",
-    image: camping,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 3,
-    title: "57 DUNE BASHING + HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Desert Safari Dubai: Luxury transfers, vintage Land Rovers, camel rides, falconry, and a 4-course dinner. Book now!",
-    image: hillCar,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 4,
-    title: "57 PREMIUM DESERT SAFARI WITH DUNE BASHING",
-    description:
-      "Experience the ultimate Desert Safari Dubai: dune bashing, camel rides, and a 4-course dinner. Book your adventure today!",
-    image: bikeRide,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 5,
-    title: "57 HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Heritage Safari Dubai: vintage Land Rovers,falconry,camel riders, and a 4-course dinner. Book tour adventure today!",
-    image: camel,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 6,
-    title: "57 DUNE BASHING + HERITAGE DESERT EXPERIENCE",
-    description:
-      "Experience the ultimate Desert Safari Dubai: Luxury transfers, vintage Land Rovers, camel rides, falconry, and a 4-course dinner. Book now!",
-    image: camel,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-  {
-    id: 7,
-    title: "57 PREMIUM DESERT SAFARI WITH DUNE BASHING",
-    description:
-      "Experience the ultimate Desert Safari Dubai: dune bashing, camel rides, and a 4-course dinner. Book your adventure today!",
-    image: sandRide,
-    originalPrice: "AED 774.00",
-    currentPrice: "AED 645.00",
-    discount: "20%",
-  },
-];
+import Link from "next/link";  
+import HeroSection from "./Hero";
 
-export default function Packages({packages}:any) {
+export default function Packages({packages,setFilters}:any) {
+    const [selectedActivity, setSelectedActivity] = useState("")
+  const [adults, setAdults] = useState(1)
+  const [childCount, setChildCount] = useState(0)
+  const [selectedDate, setSelectedDate] = useState("")
+  const [isModalVisible, setIsModalVisible] = useState(false)
       const [page, setPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+
+
 console.log("packages------->",packages);
 
   const meta = packages?.meta;
@@ -99,10 +28,29 @@ console.log("packages------->",packages);
   // Calculate current items to show based on page and limit
 
   const currentItems = packages?.result;
-    const onPageChange = (page: number) => {
+
+  //  handle page change
+  const onPageChange = (page: number) => {
     setPage(page);
+    setFilters((prev: any) => ({ ...prev, page }));
+  };
+
+  //  handle filter apply (e.g. when search button clicked)
+  const handleSearch = () => {
+    setFilters({
+      activity: selectedActivity,
+      availability: selectedDate,
+      child_min_age: childCount,
+      max_adult: adults,
+      page: 1,
+      limit,
+    });
   };
   return (
+    <div>
+  <HeroSection  
+  selectedActivity={selectedActivity} setSelectedActivity={setSelectedActivity} adults={adults} setAdults={setAdults} childCount={childCount} setChildCount={setChildCount} selectedDate={selectedDate} setSelectedDate={setSelectedDate} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} handleSearch={handleSearch} 
+  /> 
     <section className="pb-8 px-4 md:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="space-y-6">
@@ -115,7 +63,7 @@ console.log("packages------->",packages);
                 {/* Image Section */}
                 <div className="md:w-1/3 relative h-64 md:h-auto">
                   <Image
-                    src={tour.image || "/placeholder.svg"}
+                    src={tour.coverImage}
                     alt={tour.title}
                     fill
                     className="object-cover"
@@ -145,13 +93,13 @@ console.log("packages------->",packages);
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <span className="bg-orange-500 text-white px-2 py-1 rounded text-sm font-medium">
-                        {tour.discount} OFF
+                        {tour.discount} % OFF
                       </span>
                       <span className="text-gray-400 line-through text-sm">
-                        {tour.originalPrice}
+                        {tour?.original_price?.amount}
                       </span>
                       <span className="text-2xl font-bold text-gray-900">
-                        {tour.currentPrice}
+                        {tour?.discount_price?.amount}
                       </span>
                       <span className="text-sm text-gray-500">
                         / Person + VAT
@@ -159,7 +107,7 @@ console.log("packages------->",packages);
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <Link href={'/bookNow'}>
+                        <Link  href={`/bookNow/${tour?._id}`}>
                       <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-colors">
                         Book Now
                       </button>
@@ -195,5 +143,6 @@ console.log("packages------->",packages);
         </div>
       </div>
     </section>
+    </div>
   );
 }
