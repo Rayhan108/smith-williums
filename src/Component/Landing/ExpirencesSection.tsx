@@ -107,7 +107,7 @@ export default function ExperiencesSection({ packages }: any) {
                     <div className="mb-6 flex flex-wrap items-baseline gap-2">
                       {/* Discount badge */}
                       <span className="bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
-                        {experience.discount}% off
+                          {experience.discount? experience?.discount:0}% OFF
                       </span>
                       {/* Original price (strikethrough) */}
                       <span className="text-gray-400 text-sm line-through ml-2">

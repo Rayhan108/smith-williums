@@ -16,7 +16,9 @@ import { MdExpandLess } from "react-icons/md"
     "Palm Atlantis (Photo Stop)",
     "Dubai Marina",
   ]
-const PricingWithInfo = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PricingWithInfo = ({data}:any) => {
+   console.log("package data--->",data);
       const [expandedSections, setExpandedSections] = useState({
     importantNotice: false,
   })

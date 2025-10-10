@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaCalendarAlt, FaMinus, FaPlus } from "react-icons/fa";
 
-export default function Book() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Book({data}:any) {
+   console.log("package data--->",data);
   const [selectedDate, setSelectedDate] = useState("07/04/2025");
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);

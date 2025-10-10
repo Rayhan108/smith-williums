@@ -2,6 +2,7 @@ import { Aboreto, Nunito } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 import "./globals.css";
+import Providers from '@/Providers/Providers';
 
 
 // Import fonts
@@ -33,9 +34,9 @@ export default function RootLayout({
         className={`${aboreto.variable} ${nunito.variable} antialiased bg-white`}
         cz-shortcut-listen="true"
       >
-        {/* <Providers> */}
+        <Providers>
           <AntdRegistry>{children}</AntdRegistry>
-        {/* </Providers> */}
+        </Providers>
       </body>
     </html>
   );

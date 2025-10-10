@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight, Share2, Camera, MapPin, Star } from "lucide-react";
@@ -7,105 +8,104 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
-import { FaFacebook, FaSquareWhatsapp } from "react-icons/fa6";
+import { FaFacebook, FaSquareWhatsapp, FaTelegram, FaXTwitter } from "react-icons/fa6";
 
-import hillCar from "@/assests/hill-car.jpg";
-import tea from "@/assests/tea.jpg";
-import cofee from "@/assests/cofee.png";
-import bellyDance from "@/assests/belly-dance.jpg";
-import culture from "@/assests/culture.jpg";
-import camping from "@/assests/camping.png";
-import nightCamp from "@/assests/night-camp.jpg";
-import sandRide from "@/assests/sand-ride.jpg";
-import bikeRide from "@/assests/bike-ride.jpg";
-import camel from '@/assests/camel.jpg'
-import car from '@/assests/car.jpg'
-import lady from '@/assests/lady.jpg'
-import couple from '@/assests/couple.jpg'
-
-const tourImages = [
-  camel,
-  car,
-  lady,
-  couple,
-  hillCar,
-  tea,
-  cofee,
-  bellyDance,
-  culture,
-  camping,
-  nightCamp,
-  sandRide,
-  bikeRide,
-];
+interface BookHeroProps {
+  data: {
+    name?: string;
+    location?: string;
+    images?: string[];
+  };
+}
 
 const shareOptions = [
   { name: "WhatsApp", icon: <FaSquareWhatsapp className="text-green-500" /> },
-  { name: "Facebook", icon: <FaFacebook className="text-blue-500" /> },
+  { name: "Facebook", icon: <FaFacebook className="text-blue-600" /> },
+  { name: "Twitter", icon: <FaXTwitter className="text-gray-700" /> },
+  { name: "Telegram", icon: <FaTelegram className="text-sky-500" /> },
   { name: "Copy Link", icon: "🔗" },
+  { name: "More", icon: <Share2 className="text-orange-500" /> },
 ];
 
-export default function BookHero() {
+export default function BookHero({ data }: BookHeroProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
+  const images = data?.images || [];
+  const title = data?.name || "57 HERITAGE DESERT EXPERIENCE";
+  const location = data?.location || "United Arab Emirates";
+
+  // ✅ Core share function
   const handleShare = (platform: string) => {
     const url = window.location.href;
-    const title = "57 HERITAGE DESERT EXPERIENCE";
+    const text = `${title} - ${location}`;
 
     switch (platform) {
       case "WhatsApp":
-        window.open(
-          `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`
-        );
+        window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`, "_blank");
         break;
       case "Facebook":
         window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
-          )}`
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`,
+          "_blank"
         );
         break;
       case "Twitter":
         window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            title
-          )}&url=${encodeURIComponent(url)}`
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+          "_blank"
         );
         break;
-      case "Instagram":
-        navigator.clipboard.writeText(url);
-        alert("Link copied! You can paste it in Instagram.");
+      case "Telegram":
+        window.open(
+          `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
+          "_blank"
+        );
         break;
       case "Copy Link":
         navigator.clipboard.writeText(url);
-        alert("Link copied to clipboard!");
+        alert("✅ Link copied to clipboard!");
+        break;
+      case "More":
+        if (navigator.share) {
+          navigator
+            .share({
+              title: title,
+              text: text,
+              url: url,
+            })
+            .catch((err) => console.error("Share failed:", err));
+        } else {
+          alert("Your browser doesn’t support native sharing.");
+        }
+        break;
+      default:
         break;
     }
+
     setIsShareOpen(false);
   };
 
   return (
     <>
-      <div className="bg-white border-b border-gray-100 px-4 py-6 md:px-8 mt-12 ">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-100 px-4 py-6 md:px-8 mt-12">
         <div className="max-w-7xl mx-auto">
-          {/* Header Row */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            {/* Title */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-orange-500 leading-tight">
-              57 HERITAGE DESERT EXPERIENCE
+              {title}
             </h1>
 
-            {/* Actions */}
             <div className="flex items-center gap-4 flex-shrink-0">
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="flex items-center gap-2 text-orange-500 hover:text-orange-600 transition-colors"
               >
                 <Camera className="w-5 h-5" />
-                <span className="font-medium">5 photos</span>
+                <span className="font-medium">{images.length} photos</span>
               </button>
 
+              {/* Share */}
               <div className="relative">
                 <button
                   onClick={() => setIsShareOpen(!isShareOpen)}
@@ -114,9 +114,8 @@ export default function BookHero() {
                   <Share2 className="w-5 h-5" />
                 </button>
 
-                {/* Share Dropdown */}
                 {isShareOpen && (
-                  <div className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[160px] z-50">
+                  <div className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[180px] z-50">
                     {shareOptions.map((option) => (
                       <button
                         key={option.name}
@@ -135,20 +134,17 @@ export default function BookHero() {
             </div>
           </div>
 
-          {/* Location and Rating Row */}
+          {/* Location + Rating */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-4">
             <div className="flex items-center gap-2 text-gray-600">
               <MapPin className="w-4 h-4" />
-              <span className="text-sm font-medium">United Arab Emirates</span>
+              <span className="text-sm font-medium">{location}</span>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-orange-400 text-orange-400"
-                  />
+                  <Star key={i} className="w-4 h-4 fill-orange-400 text-orange-400" />
                 ))}
               </div>
               <button className="text-orange-500 hover:text-orange-600 text-sm font-medium transition-colors">
@@ -160,62 +156,69 @@ export default function BookHero() {
       </div>
 
       {/* Image Grid */}
-      <div className=" p-4 max-w-7xl  mx-auto">
-        {/* Large Image (Car in Desert) */}
-        <div className="grid grid-cols-2">
-          <Image
-            src={car}
-            alt="Car in Desert"
-            width={500}
-            height={500}
-            className=" object-cover rounded-xl w-[600px] h-[430px]"
-          />
-        {/* Small Image 1 */}
-        <div>
-          <Image
-            src={camel}
-            alt="Camel in Desert"
-            width={500}
-            height={500}
-            className="w-[100%] h-[200px] object-cover rounded-xl"
-          />
-        <div className="grid grid-cols-2 gap-3">
+      <div className="p-4 max-w-7xl mx-auto">
+        {images.length >= 4 ? (
+          <div className="grid grid-cols-2 gap-3">
             <Image
-            src={lady}
-            alt="Camel in Desert"
-            width={500}
-            height={500}
-            className="w- mt-5 object-cover rounded-xl"
-          />
+              src={images[0]}
+              alt="Main"
+              width={600}
+              height={430}
+              className="object-cover rounded-xl w-full h-[430px]"
+            />
+            <div>
               <Image
-            src={couple}
-            alt="Camel in Desert"
-            width={500}
-            height={500}
-            className=" mt-5 object-cover rounded-xl"
-          />
-        </div>
-      
-        </div>
-        </div>
-
-
-     
+                src={images[1]}
+                alt="Secondary"
+                width={600}
+                height={200}
+                className="w-full h-[200px] object-cover rounded-xl"
+              />
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <Image
+                  src={images[2]}
+                  alt="Third"
+                  width={300}
+                  height={200}
+                  className="object-cover rounded-xl"
+                />
+                <Image
+                  src={images[3]}
+                  alt="Fourth"
+                  width={300}
+                  height={200}
+                  className="object-cover rounded-xl"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {images.map((img, i) => (
+              <Image
+                key={i}
+                src={img}
+                alt={`Gallery ${i + 1}`}
+                width={400}
+                height={300}
+                className="object-cover rounded-xl w-full h-[300px]"
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Small Centered Photo Modal */}
+      {/* Swiper Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-opacity-60 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
           <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-3xl h-auto p-4">
-            {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-3 right-3 z-10 p-2  bg-opacity-40 rounded-full text-white hover:bg-opacity-70 transition-colors"
+              className="absolute top-3 right-3 z-10 p-2 text-gray-700 hover:text-black transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Swiper Slider */}
             <Swiper
               modules={[Navigation, Pagination]}
               navigation={{
@@ -234,11 +237,11 @@ export default function BookHero() {
               slidesPerView={1}
               loop={true}
             >
-              {tourImages.map((image, index) => (
+              {images.map((img, index) => (
                 <SwiperSlide key={index}>
                   <div className="w-full h-full flex items-center justify-center bg-gray-50">
                     <Image
-                      src={image || "/placeholder.svg"}
+                      src={img}
                       alt={`Tour image ${index + 1}`}
                       width={800}
                       height={600}
@@ -249,7 +252,6 @@ export default function BookHero() {
               ))}
             </Swiper>
 
-            {/* Custom Navigation Buttons */}
             <button className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black bg-opacity-50 rounded-full text-white hover:bg-opacity-70 transition-colors">
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -260,12 +262,8 @@ export default function BookHero() {
         </div>
       )}
 
-      {/* Share Modal Backdrop */}
       {isShareOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsShareOpen(false)}
-        />
+        <div className="fixed inset-0 z-40" onClick={() => setIsShareOpen(false)} />
       )}
     </>
   );
