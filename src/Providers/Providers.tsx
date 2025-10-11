@@ -1,8 +1,9 @@
+// src/Providers/Providers.tsx
+"use client";
+import { ReactNode } from "react";
 import StoreProvider from "./StoreProvider";
 
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Providers = ({ children }:any) => {
+const Providers = ({ children }: { children: ReactNode }) => {
   return <StoreProvider>{children}</StoreProvider>;
 };
 

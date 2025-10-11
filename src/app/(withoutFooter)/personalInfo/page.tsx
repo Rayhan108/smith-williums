@@ -1,5 +1,7 @@
 "use client"
 
+import { setPersonalInfo } from "@/redux/feature/booking/bookingSlice"
+import { useAppDispatch } from "@/redux/hooks"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 
@@ -13,6 +15,7 @@ interface PersonalInfoFormData {
 
 export default function PersonalInfoForm() {
     const router = useRouter()
+      const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -21,13 +24,24 @@ export default function PersonalInfoForm() {
 
   const onSubmit = async (data: PersonalInfoFormData) => {
     console.log("Personal Info Form Data:", data)
-    router.push('/otpVerification')
+  
+  
     // Handle form submission here
+    dispatch(
+      setPersonalInfo({
+        customer_name:data?.name,
+        customer_email:data?.email,
+        customer_phone:data?.phoneNumber,
+        customer_country:data?.country,
+        pickup_location:data?.pickupLocation
+      })
+    )
+       router.push('/payment')
   }
 
   const onPrevious = () => {
     console.log("Previous step")
-    // Handle previous step navigation
+
   }
 
   return (
