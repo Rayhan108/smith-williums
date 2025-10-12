@@ -24,7 +24,7 @@ const router = useRouter()
 
       const checkoutData = {
         item: {
-          packageId:bookingState?._id, // replace with dynamic id if available
+          packageId:bookingState?.bookingId, // replace with dynamic id if available
           currency: readonlyData?.currency,
           customerEmail: readonlyData?.customer_email,
           price: readonlyData?.pricing?.grand_total || 0,

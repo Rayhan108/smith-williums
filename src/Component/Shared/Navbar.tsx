@@ -30,6 +30,7 @@ export function Navbar() {
   //     ? "text-[#FB5A10] font-medium transition-colors"
   //     : "text-black hover:text-orange-600 font-medium transition-colors";
   // };
+
 // Function to apply active class based on the current path
 const getLinkClass = (href: string) => {
   // All routes where category should stay active
@@ -128,7 +129,7 @@ const getLinkClass = (href: string) => {
                   >
                     AED
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => handleCurrencySelect("USD")}
                     className="block px-3 py-2 hover:bg-gray-100"
                   >
@@ -145,7 +146,7 @@ const getLinkClass = (href: string) => {
                     className="block px-3 py-2 hover:bg-gray-100"
                   >
                     GBP
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>

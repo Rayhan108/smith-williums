@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 type Availability = { start: string; end: string };
 
 type IncomingTourOption = {
-  id?: string | number;
+  id?: string ;
   name: string;
   amount: number;
   currency?: string;
@@ -196,7 +196,7 @@ const onSubmit = (values: FormValues) => {
   dispatch(
     setBooking({
       // from params (ensure your component prop type includes these fields)
-        _id: data?._id ?? "",
+        bookingId: data?._id ?? "",
       title: data?.title ?? "",
       images: Array.isArray(data?.images) ? (data!.images as string[]) : [],
       location: data?.location ?? "",

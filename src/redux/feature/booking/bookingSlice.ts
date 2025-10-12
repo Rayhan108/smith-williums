@@ -24,7 +24,7 @@ export interface Pricing {
 
 export interface SetBookingPayload {
   // from data (params)
-  _id:string
+  bookingId:string
   title: string;
   images: string[];
   location: string;
@@ -53,7 +53,7 @@ export type BookingState = SetBookingPayload;
 
 /* ---------- Initial ---------- */
 const initialState: BookingState = {
-  _id:"",
+  bookingId:"",
   title: "",
   images: [],
   location: "",
