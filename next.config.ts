@@ -1,24 +1,30 @@
 /** @type {import('next').NextConfig} */
 
-// Use env so you can change host/port/protocol per environment
+// Read environment variables
 const API_PROTOCOL = process.env.NEXT_PUBLIC_API_PROTOCOL || "http";
 const API_HOST     = process.env.NEXT_PUBLIC_API_HOST     || "10.10.20.13";
 const API_PORT     = process.env.NEXT_PUBLIC_API_PORT     || "5000";
 
+// Import next-intl plugin
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const withNextIntl = require('next-intl/plugin')();
+
+// Your main Next.js configuration
 const nextConfig = {
+  reactStrictMode: true,
+
   images: {
-    // Modern formats when available
     formats: ['image/avif', 'image/webp'],
 
-    // Prefer remotePatterns over domains; more precise & supports ports/paths
     remotePatterns: [
       // Your backend uploads (env-configurable)
       {
-        protocol: API_PROTOCOL, // "http" or "https"
-        hostname: API_HOST, // e.g. "10.10.20.13"
-        port: API_PORT, // e.g. "5000"
+        protocol: API_PROTOCOL,
+        hostname: API_HOST,
+        port: API_PORT,
         pathname: '/uploads/**',
       },
+
       // Local dev fallbacks
       {
         protocol: 'http',
@@ -73,4 +79,5 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// ✅ Export with next-intl plugin
+module.exports = withNextIntl(nextConfig);

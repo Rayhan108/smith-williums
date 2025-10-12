@@ -1,0 +1,129 @@
+{
+  "nav": {
+    "home": "Home",
+    "category": "Category",
+    "about": "About",
+    "blogs": "Blogs",
+    "contact": "Contact Us"
+  },
+  "currency": "AED",
+  "language": "English",
+  "buttons": {
+    "bookNow": "Book Now",
+    "previous": "Previous",
+    "next": "Next",
+    "confirmCheckout": "Confirm & Checkout",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "getInTouch": "Get in Touch",
+    "callNow": "Call Now"
+  },
+  "home": {
+    "title": "Experience the Magic of Dubai",
+    "subtitle": "There’s truly no place like Dubai a city where golden deserts meet sparkling skylines. From thrilling dune bashing to serene sunset views, Dubai offers an experience unlike anywhere else in the world. Let us take you on an unforgettable desert safari adventure that captures the heart and soul of this vibrant city.",
+    "experiencesTitle": "Our Experiences",
+    "activitiesTitle": "The Desert Safari Activities",
+    "exploreDubai": "Explore Dubai with Oasis Tours",
+    "whyChoose": "Why Choose Oasis Palm Tourism",
+    "faqTitle": "FAQs - Dubai Tours by Oasis Palm Tourism",
+    "faq1": "How do I book a tour with Oasis Palm Dubai?",
+    "faq2": "Can I book group or private tours?",
+    "faq3": "Is hotel pickup and drop-off included in your Dubai tours?"
+  },
+  "category": {
+    "title": "Desert Safari Tour Dubai",
+    "filters": {
+      "activity": "Select Activity",
+      "date": "Date",
+      "guests": "Guests",
+      "search": "Search"
+    },
+    "cards": {
+      "eveningSafari": "Evening Desert Safari - Premium",
+      "location": "Dubai Desert Conservation Reserve",
+      "duration": "Duration",
+      "maxAdults": "Max Adults",
+      "maxChildren": "Max Child",
+      "availability": "Availability",
+      "price": "AED {{price}} / Person + VAT"
+    }
+  },
+  "booking": {
+    "title": "Evening Desert Safari – Premium",
+    "location": "Dubai Desert Conservation Reserve",
+    "details": {
+      "date": "Date",
+      "adults": "Adults",
+      "children": "Children",
+      "customer": "Customer",
+      "email": "Email",
+      "phone": "Phone",
+      "pickup": "Pickup Location",
+      "currency": "Currency",
+      "basePrice": "Base Tour Price",
+      "additionalPrice": "Additional Price",
+      "grandTotal": "Grand Total"
+    }
+  },
+  "checkout": {
+    "title": "Confirm Your Booking",
+    "success": "Checkout successful!",
+    "error": "Checkout failed. Please try again."
+  },
+  "about": {
+    "title": "Quality Desert Tours",
+    "missionTitle": "Our Values, Mission & Vision",
+    "mission": "Our mission is to create unforgettable desert adventures that connect travelers with the beauty and spirit of the Arabian desert.",
+    "vision": "Our vision is to be the leading desert safari experience provider in Dubai, recognized globally for excellence, authenticity, and sustainability.",
+    "awardsTitle": "Sand Trail’s Proud Achievements"
+  },
+  "blogs": {
+    "title": "Blogs",
+    "articles": {
+      "guide": "The Ultimate Guide to Dubai Desert Safari: What to Expect",
+      "morningVsEvening": "Morning vs. Evening Desert Safari: Which One Should You Choose?",
+      "activities": "Top 7 Activities You Can’t Miss on a Dubai Desert Safari",
+      "whatToWear": "What to Wear on a Dubai Desert Safari: A Complete Style & Comfort Guide",
+      "essentials": "Dubai Desert Safari Essentials: What You Need to Know"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "getInTouch": "Get In Touch",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message"
+    },
+    "address": "4074 Ebert Summit Suite 375, Lake Leonardchester",
+    "phone": "+971506800227",
+    "emailAddress": "hello@desertlaila.com"
+  },
+  "footer": {
+    "why": {
+      "title": "Why CityLaila?",
+      "instant": "Instant confirmation. Purchase anytime you need it, anywhere you want it.",
+      "customers": "100k+ Happy customers",
+      "deals": "Get the lowest prices and last-minute deals",
+      "support": "Have a question? Live chat our experts 24/7",
+      "discover": "Discover and connect with 500+ experiences"
+    },
+    "connect": {
+      "title": "Connect With Us",
+      "email": "Mail",
+      "company": "Company",
+      "uae": "UAE Office",
+      "egypt": "Egypt Office",
+      "singapore": "Singapore Office"
+    },
+    "links": {
+      "about": "About Us",
+      "faqs": "FAQs",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "refund": "Refund & Returns",
+      "contact": "Contact Us"
+    },
+    "copyright": "© 2025 CityLaila FZ-LLC. All rights reserved."
+  }
+}

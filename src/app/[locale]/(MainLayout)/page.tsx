@@ -8,6 +8,7 @@ import FAQSection from "@/Component/Landing/FAQ";
 import WhyChoose from "@/Component/Landing/WhyChoose";
 import { getAllEvents, getAllFaq, getAllPackage } from "@/utils/api/api";
 
+
 import React from "react";
 
 const HomePage =async () => {
@@ -20,10 +21,13 @@ const events = await getAllEvents();
 
 
 const faq = await getAllFaq();
-
+  // const t = await getTranslations("home");
   return (
     <div>
-      <Banner/>
+      <Banner 
+        // title={t("title")}
+        // subtitle={t("subtitle")}
+        />
       <AwardsSection/>
       <ExperiencesSection packages={packages}/>
       <DesertSafariActivities/>
