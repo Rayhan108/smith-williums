@@ -19,6 +19,7 @@ export default async function LocaleLayout({
 
     messages = (await import(`@/i18n/locales/${locale}/common.json`)).default;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     console.error(` Missing translation for locale: ${locale}`);
     notFound();

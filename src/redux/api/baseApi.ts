@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store';
+// import { RootState } from '../store';
 
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_HOST_API,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers,
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     { getState }
+    ) => {
     headers.set('Accept', 'application/json');
 
     // ✅ Get token from Redux store

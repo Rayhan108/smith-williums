@@ -12,6 +12,11 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    // 🔽 ei part-ta add koro
+    linterOptions: {
+      // "error" | "warn" | "off"
+      reportUnusedDisableDirectives: "off",
+    },
     ignores: [
       "node_modules/**",
       ".next/**",
@@ -19,6 +24,10 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    // OPTIONAL: jodi chai, specific rule-tao off kora jay
+    // rules: {
+    //   "@typescript-eslint/no-explicit-any": "off",
+    // },
   },
 ];
 

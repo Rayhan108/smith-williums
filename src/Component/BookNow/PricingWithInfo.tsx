@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { MdExpandMore } from 'react-icons/md';
-import { FaCalendarAlt, FaMinus, FaPlus, FaCheck, FaStar, FaStarHalfAlt } from "react-icons/fa"
+import {FaCheck} from "react-icons/fa"
 import { MdExpandLess } from "react-icons/md"
   const includedItems = [
     "Pickup and Drop off",
