@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client'
 import { FaChevronRight } from "react-icons/fa"
 import about from '@/assests/aboutHero.jpg'
+
 export default function AboutBanner() {
   const title = "About"
   const breadcrumbs = [
@@ -7,6 +10,7 @@ export default function AboutBanner() {
     { label: "About", href: "/about" },
 
   ]
+ 
 
   return (
     <div className="relative h-[500px]   w-full overflow-hidden ">
