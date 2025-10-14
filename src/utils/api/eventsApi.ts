@@ -9,3 +9,4 @@
 //   const data = await res.json();
 //   console.log("data------>",data?.data);
 //   const packages = data?.data?.result
+// this is event api
