@@ -1,4 +1,5 @@
-'use client'; // only if Navbar/Footer need client features; otherwise remove
+// src/Component/MainShell/MainShell.tsx
+"use client";
 
 import type { ReactNode } from "react";
 import Footer from "@/Component/Shared/Footer";

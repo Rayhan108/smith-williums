@@ -1,6 +1,6 @@
-import MainShell from "@/Component/MainShell/MainShell";
+// src/app/[locale]/(MainLayout)/layout.tsx
 import type { ReactNode } from "react";
-
+import MainShell from "@/Component/MainShell/MainShell";
 
 type RouteParams = { locale: string };
 
@@ -9,7 +9,7 @@ export default async function Layout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<RouteParams>; // Next 15 expects a Promise
+  params: Promise<RouteParams>;
 }) {
   const { locale } = await params;
   return <MainShell locale={locale}>{children}</MainShell>;

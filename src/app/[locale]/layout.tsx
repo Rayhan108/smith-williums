@@ -1,10 +1,9 @@
+// src/app/[locale]/layout.tsx
 export const dynamic = "force-dynamic";
 
 import type { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import MainShell from "@/Component/MainShell/MainShell";
-
 
 type RouteParams = { locale: string };
 
@@ -13,21 +12,17 @@ export default async function LocaleLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<RouteParams>;
+  params: Promise<RouteParams>; // Next 15
 }) {
   const { locale } = await params;
 
   let messages;
   try {
     messages = (await import(`@/i18n/locales/${locale}/common.json`)).default;
-  } catch (error) {
+  } catch (err) {
     console.error(`Missing translation for locale: ${locale}`);
     notFound();
   }
 
-  return (
-    <NextIntlClientProvider messages={messages}>
-      <MainShell locale={locale}>{children}</MainShell>
-    </NextIntlClientProvider>
-  );
+  return <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>;
 }
