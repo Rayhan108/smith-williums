@@ -1,21 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useState } from 'react';
 import { MdExpandMore } from 'react-icons/md';
 import {FaCheck} from "react-icons/fa"
 import { MdExpandLess } from "react-icons/md"
-  const includedItems = [
-    "Pickup and Drop off",
-    "Dubai Museum",
-    "Zabeel Palace (Dubai King Palace)",
-    "Burj Al Arab (Only 71 Hotel)",
-    "Burj Khalifa (Passing By)",
-    "Dubai Zoo (Passing By)",
-    "Islamic Art Gallery",
-    "Jumeirah Road",
-    "Jumeirah Mosque",
-    "Palm Atlantis (Photo Stop)",
-    "Dubai Marina",
-  ]
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PricingWithInfo = ({data}:any) => {
    console.log("package data--->",data);
@@ -37,8 +26,8 @@ const PricingWithInfo = ({data}:any) => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Timings</h3>
         <div className="text-sm space-y-1">
-          <div>09:00 AM - 09:30 AM (Expected Pickup)</div>
-          <div>01:30 PM - 01:30 PM (Expected Drop off)</div>
+          <div>{data?.pickup} (Expected Pickup)</div>
+          <div>{data?.drop_off} (Expected Drop off)</div>
         </div>
       </div>
 
@@ -81,7 +70,7 @@ const PricingWithInfo = ({data}:any) => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Included / Excluded</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {includedItems.map((item, index) => (
+          {data?.included?.map((item:any, index:number) => (
             <div key={index} className="flex items-center text-sm">
               <FaCheck className="text-green-500 mr-2 text-xs" />
               <span>{item}</span>
@@ -98,13 +87,15 @@ const PricingWithInfo = ({data}:any) => {
             <span className="font-medium">Important Notice</span>
             <MdExpandMore/>
           </div>
-          <div className="mt-2 text-sm space-y-2">
-            <div>• Kids below 3 years are free of charge.</div>
-            <div>• Pickup and Drop off from anywhere in Dubai.</div>
-            <div>
-              • Customers from Sharjah and Ajman Are advised to come to Sahara Center Al Nahda Sharjah for the pickup.
+          {
+            data?.tour_plan?.map((item:any, index:number) => (
+            <div key={index} className="flex items-center text-sm mt-3">
+              <FaCheck className="text-green-500 mr-2 text-xs" />
+              <span>{item}</span>
             </div>
-          </div>
+          ))}
+
+        
         </div>
       </div>
 
@@ -112,14 +103,7 @@ const PricingWithInfo = ({data}:any) => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Description</h3>
         <div className="text-sm leading-relaxed">
-          Experience the ultimate Heritage Safari Dubai vintage Land Rovers/falconry/camel riders, and a 4-course
-          dinner. Book your adventure today. Step back in time and immerse yourself in the rich traditions of the UAE
-          with our Heritage Safari Dubai. Journey into the golden dunes in an open-top vintage Land Rover just like the
-          desert explorers once did. Witness the awe-inspiring art of falconry, where skilled falconers showcase the
-          grace and power of these magnificent birds. Enjoy an authentic camel ride through the serene desert landscape.
-          As the sun sets over the desert, relax in a traditional Bedouin-style camp, where you&apos;ll be served a lavish
-          4-course dinner under a canopy of stars. With live cultural performances, henna painting, and aromatic shisha,
-          this experience blends adventure, culture, and luxury into one unforgettable evening.
+       {data?.description}
         </div>
       </div> 
         </div>

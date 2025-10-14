@@ -12,6 +12,8 @@ const {id}=params
     const packages = await getSinglePackage(id);
     const data = packages?.data
     console.log("Packages:----------------->", data);
+    const reviews = data?.review
+    //   const reviews = Array.isArray(data?.review) ? data.review : [];
     return (
         <div>
             <BookHero data={data}/>
@@ -22,7 +24,7 @@ const {id}=params
             </div>
             <Book  data={data}/>
             <PricingWithInfo  data={data}/>
-            <Review/>
+       <Review review={reviews} packageId={id} /> 
         </div>
     );
 };
