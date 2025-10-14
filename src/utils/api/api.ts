@@ -65,6 +65,25 @@ export const getSinglePackage = async (id:any) => {
     return { meta: {}, result: [] }; // Return empty meta and result in case of error
   }
 };
+export const getSingleBlog = async (id:any) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/blog/single-blog/${id}`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    const data = await res.json();
+    
+    // Return both the meta and result data
+    return data
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return { meta: {}, result: [] }; // Return empty meta and result in case of error
+  }
+};
 
 export const getAllEvents = async () => {
   try {
