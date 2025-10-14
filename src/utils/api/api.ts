@@ -2,7 +2,7 @@
 
 export const getAllPackage = async (params: Record<string, any> = {}) => {
   try {
-    // Remove empty or undefined params
+    // Remove empty or undefined paramss
     const filteredParams = Object.fromEntries(
       Object.entries(params).filter(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
