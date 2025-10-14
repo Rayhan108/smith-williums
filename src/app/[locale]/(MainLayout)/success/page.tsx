@@ -1,17 +1,23 @@
+// app/[locale]/(MainLayout)/success/page.tsx  (Server Component)
+
 import SuccessClient from "@/Component/Success/SuccessClient";
 
-// ✅ Explanation:
-// Next.js 15 has a bug in PageProps typing, so we define our own safe type.
-interface SuccessPageProps {
-  searchParams?: Record<string, string | string[] | undefined>;
-}
+type SearchParams = Record<string, string | string[] | undefined>;
+type RouteParams = { locale: string }; // add other dynamic segments if you have them
 
-// ✅ Use a normal (non-async) function to avoid Next.js Promise type mismatch
-export default function SuccessPage({ searchParams }: SuccessPageProps) {
+type Props = {
+  // In Next 15, these are Promises in the generated PageProps
+  params: Promise<RouteParams>;
+  searchParams?: Promise<SearchParams>;
+};
+
+export default async function SuccessPage({ params, searchParams }: Props) {
+  // You can await them independently
+  const { locale } = await params; // if you need it
+  const sp = (await searchParams) ?? {};
+
   const sessionId =
-    typeof searchParams?.session_id === "string"
-      ? searchParams.session_id
-      : "";
+    typeof sp.session_id === "string" ? sp.session_id : "";
 
   return <SuccessClient sessionId={sessionId} />;
 }

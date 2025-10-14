@@ -1,25 +1,25 @@
+// app/[locale]/(withoutFooter)/layout.tsx
 
+import type { ReactNode } from "react";
 import { Navbar } from "@/Component/Shared/Navbar";
 
+type RouteParams = { locale: string };
 
-const WithoutFooterLayout = ({
+export default async function WithoutFooterLayout({
   children,
-  locale,
+  params,
 }: {
-  children: React.ReactNode;
-  locale: string;
-}) => {
+  children: ReactNode;
+  params: Promise<RouteParams>; // Next 15: params is a Promise
+}) {
+  const { locale } = await params; // read locale from params
+
   return (
     <>
       <div>
-          <Navbar locale={locale}/>
-        <div className="min-h-screen ">
-          {children}
-        </div>
-    
+        <Navbar locale={locale} />
+        <div className="min-h-screen">{children}</div>
       </div>
     </>
   );
-};
-
-export default WithoutFooterLayout;
+}

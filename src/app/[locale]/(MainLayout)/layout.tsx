@@ -1,23 +1,16 @@
-import Footer from "@/Component/Shared/Footer";
-import { Navbar } from "@/Component/Shared/Navbar";
+import MainShell from "@/Component/MainShell/MainShell";
+import type { ReactNode } from "react";
 
-const MainLayout = ({
+
+type RouteParams = { locale: string };
+
+export default async function Layout({
   children,
-  locale,
+  params,
 }: {
-  children: React.ReactNode;
-  locale: string;
-}) => {
-  return (
-    <>
-      <div>
-        {/* Pass locale into Navbar */}
-        <Navbar locale={locale} />
-        <div className="min-h-screen">{children}</div>
-        <Footer />
-      </div>
-    </>
-  );
-};
-
-export default MainLayout;
+  children: ReactNode;
+  params: Promise<RouteParams>; // Next 15 expects a Promise
+}) {
+  const { locale } = await params;
+  return <MainShell locale={locale}>{children}</MainShell>;
+}
