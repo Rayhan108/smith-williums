@@ -1,10 +1,21 @@
-import createMiddleware from 'next-intl/middleware';
+// import createMiddleware from 'next-intl/middleware';
+// import {routing} from './i18n/routing';
+ 
+// export default createMiddleware(routing);
+ 
+// export const config = {
+//   // Match all pathnames except for
+//   // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+//   // - … the ones containing a dot (e.g. `favicon.ico`)
+//   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+// };
 
-export default createMiddleware({
-  locales: ['en', 'ar'],  // Supported languages
-  defaultLocale: 'en'     // Default fallback
-});
+
+import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
+
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: ['/((?!_next|api|.*\\..*).*)']
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
 };

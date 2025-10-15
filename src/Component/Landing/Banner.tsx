@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import jiraf from "@/assests/jiraf.png";
 import car from "@/assests/car.png";

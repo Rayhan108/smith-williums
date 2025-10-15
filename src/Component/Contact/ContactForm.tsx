@@ -1,6 +1,8 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { message as antdMessage } from "antd"
 
 interface ContactFormData {
   name: string
@@ -16,21 +18,53 @@ const ContactForm = () => {
     reset,
   } = useForm<ContactFormData>()
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log("Form submitted:", data)
-    // Handle form submission here
-    reset()
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [feedback, setFeedback] = useState("")
+
+  // ✅ Initialize message instance (important for React 19)
+  const [messageApi, contextHolder] = antdMessage.useMessage()
+
+  const onSubmit = async (data: ContactFormData) => {
+    setStatus("loading")
+    setFeedback("")
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/contact/send-message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      const result = await res.json()
+
+      if (res.ok) {
+        setStatus("success")
+        messageApi.success(result.message || "Message sent successfully.")
+        reset()
+      } else {
+        setStatus("error")
+        messageApi.error(result.message || "Failed to send message.")
+      }
+    } catch (err) {
+      console.error("Error sending form:", err)
+      setStatus("error")
+      messageApi.error("Something went wrong. Please try again later.")
+    }
   }
 
   return (
     <section className="bg-gray-50 py-16 px-4 font-nunito">
+      {/* ✅ Required context for message toasts */}
+      {contextHolder}
+
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Contact Info */}
+          {/* Left Column */}
           <div className="space-y-8">
             <div>
               <h3 className="text-3xl font-bold text-gray-900 mb-4">Contact Us</h3>
@@ -40,17 +74,15 @@ const ContactForm = () => {
             </div>
 
             <div className="space-y-6">
-              {/* Email */}
               <div className="flex items-center gap-4">
                 <div className="w-6 h-6 text-orange-500">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                   </svg>
                 </div>
-                <span className="text-gray-700 text-lg">hello@desertlaila.com.com</span>
+                <span className="text-gray-700 text-lg">hello@desertlaila.com</span>
               </div>
 
-              {/* Address */}
               <div className="flex items-start gap-4">
                 <div className="w-6 h-6 text-orange-500 mt-1">
                   <svg viewBox="0 0 24 24" fill="currentColor">
@@ -63,7 +95,6 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className="flex items-start gap-4">
                 <div className="w-6 h-6 text-orange-500 mt-1">
                   <svg viewBox="0 0 24 24" fill="currentColor">
@@ -78,24 +109,22 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Right Column - Contact Form */}
+          {/* Right Column */}
           <div className="bg-white rounded-lg p-8 shadow-sm">
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Leave A Reply</h3>
-            <p className="text-gray-600 mb-6">Your email address will not be published. Required fields are marked</p>
+            <p className="text-gray-600 mb-6">Your email address will not be published.</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Name Field */}
               <div>
                 <input
                   {...register("name", { required: "Name is required" })}
                   type="text"
                   placeholder="Name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-gray-900 placeholder-gray-500"
                 />
                 {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
               </div>
 
-              {/* Email Field */}
               <div>
                 <input
                   {...register("email", {
@@ -107,28 +136,27 @@ const ContactForm = () => {
                   })}
                   type="email"
                   placeholder="Email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-gray-900 placeholder-gray-500"
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
               </div>
 
-              {/* Message Field */}
               <div>
                 <textarea
                   {...register("message", { required: "Message is required" })}
                   placeholder="Message"
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors resize-none text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-gray-900 placeholder-gray-500"
                 />
                 {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                disabled={status === "loading"}
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
               >
-                Submit
+                {status === "loading" ? "Sending..." : "Submit"}
               </button>
             </form>
           </div>

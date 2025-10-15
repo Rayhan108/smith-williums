@@ -42,6 +42,8 @@ export function Navbar({ locale }: { locale: string }) {
     router.refresh();
   };
 
+
+
   const handleCurrencySelect = (currency: string) => {
     setSelectedCurrency(currency);
     setIsCurrencyOpen(false);
@@ -128,12 +130,12 @@ export function Navbar({ locale }: { locale: string }) {
                 >
                   AED
                 </button>
-                <button
+                {/* <button
                   onClick={() => handleCurrencySelect("USD")}
                   className="block px-3 py-2 hover:bg-gray-100"
                 >
                   USD
-                </button>
+                </button> */}
               </div>
             )}
           </div>
@@ -212,12 +214,12 @@ export function Navbar({ locale }: { locale: string }) {
                   >
                     AED
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => handleCurrencySelect("USD")}
                     className="block px-3 py-2 hover:bg-gray-100"
                   >
                     USD
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
