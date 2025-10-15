@@ -9,10 +9,11 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import { useTranslations } from "next-intl";
 
 export default function ExperiencesSection({ packages }: any) {
   /* SEO Meta Tags */
-
+  const t = useTranslations("buttons");
   {
     packages?.result.map((experience: any) => (
       <Head key={experience.id}>
@@ -132,7 +133,7 @@ export default function ExperiencesSection({ packages }: any) {
                         className="flex-1"
                       >
                         <div className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center">
-                          Book Now
+                              {t("bookNow")}
                         </div>
                       </Link>
 
@@ -141,7 +142,7 @@ export default function ExperiencesSection({ packages }: any) {
                         type="button"
                         className="flex-1 w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
                       >
-                        WhatsApp
+                      {t("whatsapp")}
                         <svg
                           className="w-4 h-4"
                           fill="currentColor"

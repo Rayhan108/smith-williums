@@ -6,10 +6,36 @@
     "blogs": "Blogs",
     "contact": "Contact Us"
   },
+  "award": {
+  "home": {
+    "title": "Best Customer Satisfaction Awards Winner in Travel Industry - 2025",
+    "subtitle": "We are proud to share this — out of thousands of reviews across all channels, we achieved an average rating of 4.8 stars out of 5.",
+    "trustpilot": {
+      "label": "Trustpilot",
+      "reviews": "Excellent Reviews",
+      "rating": "4.7",
+      "badge": "✓ VERIFIED COMPANY"
+    },
+    "facebook": {
+      "label": "Facebook",
+      "reviews": "Excellent Reviews",
+      "rating": "5.0",
+      "badge": "LOCAL & TRAVEL WEBSITE"
+    },
+    "google": {
+      "label": "Google",
+      "reviews": "Excellent Reviews",
+      "rating": "4.9",
+      "badge": "BEST TOUR OPERATOR"
+    }
+  }
+},
   "currency": "AED",
   "language": "English",
+  
   "buttons": {
     "bookNow": "Book Now",
+    "whatsapp": "WhatsApp",
     "previous": "Previous",
     "next": "Next",
     "confirmCheckout": "Confirm & Checkout",

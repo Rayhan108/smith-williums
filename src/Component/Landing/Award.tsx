@@ -1,4 +1,9 @@
+'use client'
+import { useTranslations } from "next-intl";
+
 export default function AwardsSection() {
+  const t = useTranslations("award.home");
+
   return (
     <section className="bg-white py-16 px-6 font-nunito">
       <div className="max-w-7xl mx-auto">
@@ -6,11 +11,10 @@ export default function AwardsSection() {
           {/* Left Content */}
           <div className="lg:col-span-1">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Best customer satisfaction awards wionner in travel industry - 2025
+              {t("title")}
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed">
-              We are proud to share this- Out of thousands of reviews across all the channel, We get an average of 4.8
-              stars out of 5
+              {t("subtitle")}
             </p>
           </div>
 
@@ -25,11 +29,11 @@ export default function AwardsSection() {
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                   </div>
-                  <span className="font-bold text-gray-900">Trustpilot</span>
+                  <span className="font-bold text-gray-900">{t("trustpilot.label")}</span>
                 </div>
               </div>
 
-              <p className="text-gray-700 font-medium mb-3">Excellent Reviews</p>
+              <p className="text-gray-700 font-medium mb-3">{t("trustpilot.reviews")}</p>
 
               <div className="flex justify-center items-center gap-1 mb-2">
                 {[...Array(5)].map((_, i) => (
@@ -37,11 +41,11 @@ export default function AwardsSection() {
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
-                <span className="ml-2 text-xl font-bold text-gray-900">4.7</span>
+                <span className="ml-2 text-xl font-bold text-gray-900">{t("trustpilot.rating")}</span>
               </div>
 
               <div className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full inline-block">
-                ✓ VERIFIED COMPANY
+                {t("trustpilot.badge")}
               </div>
             </div>
 
@@ -52,11 +56,11 @@ export default function AwardsSection() {
                   <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
                     <span className="text-white font-bold text-sm">f</span>
                   </div>
-                  <span className="font-bold text-blue-600">facebook</span>
+                  <span className="font-bold text-blue-600">{t("facebook.label")}</span>
                 </div>
               </div>
 
-              <p className="text-gray-700 font-medium mb-3">Excellent Reviews</p>
+              <p className="text-gray-700 font-medium mb-3">{t("facebook.reviews")}</p>
 
               <div className="flex justify-center items-center gap-1 mb-2">
                 {[...Array(5)].map((_, i) => (
@@ -64,11 +68,11 @@ export default function AwardsSection() {
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
-                <span className="ml-2 text-xl font-bold text-gray-900">5.0</span>
+                <span className="ml-2 text-xl font-bold text-gray-900">{t("facebook.rating")}</span>
               </div>
 
               <div className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full inline-block">
-                LOCAL & TRAVEL WEBSITE
+                {t("facebook.badge")}
               </div>
             </div>
 
@@ -87,7 +91,7 @@ export default function AwardsSection() {
                 </div>
               </div>
 
-              <p className="text-gray-700 font-medium mb-3">Excellent Reviews</p>
+              <p className="text-gray-700 font-medium mb-3">{t("google.reviews")}</p>
 
               <div className="flex justify-center items-center gap-1 mb-2">
                 {[0, 1, 2, 3, 4].map((i) => (
@@ -110,16 +114,16 @@ export default function AwardsSection() {
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
-                <span className="ml-2 text-xl font-bold text-gray-900">4.9</span>
+                <span className="ml-2 text-xl font-bold text-gray-900">{t("google.rating")}</span>
               </div>
 
               <div className="bg-orange-100 text-orange-800 text-xs font-semibold px-3 py-1 rounded-full inline-block">
-                BEST TOUR OPERATOR
+                {t("google.badge")}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
