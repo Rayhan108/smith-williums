@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 export default function ExperiencesSection({ packages }: any) {
   /* SEO Meta Tags */
   const t = useTranslations("buttons");
+  const title = useTranslations("home");
   {
     packages?.result.map((experience: any) => (
       <Head key={experience.id}>
@@ -48,7 +49,7 @@ export default function ExperiencesSection({ packages }: any) {
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
-          Our Experiences
+         {title("experiencesTitle")}
         </h2>
 
         {/* Experiences Slider */}

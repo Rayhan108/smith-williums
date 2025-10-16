@@ -10,10 +10,12 @@ import {Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useTranslations } from "next-intl";
 
 
 
 export default function ExclusiveArrangements({events}:any) {
+    const title = useTranslations("home");
   console.log("events----->",events);
   return (
     <section className="w-full py-12 px-4 md:px-8 font-nunito">
@@ -24,7 +26,9 @@ export default function ExclusiveArrangements({events}:any) {
             Exclusive arrangement for Corporate, 
             <br />
             individual, special day or personalize
-          </h2>
+
+   {/* {title("eventTitle")}      */}
+        </h2>
         </div>
 
         {/* Swiper Slider */}

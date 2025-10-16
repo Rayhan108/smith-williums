@@ -24,7 +24,7 @@ const faq = await getAllFaq();
   // const t = await getTranslations("home");
   return (
     <div>
-      <Banner 
+      <Banner  
         // title={t("title")}
         // subtitle={t("subtitle")}
         />
