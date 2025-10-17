@@ -3,6 +3,7 @@ import {  Award, Mountain, Briefcase as Certificate, Leaf } from "lucide-react"
 import ofRoadGirl from '@/assests/off-road.jpg'
 import desert from '@/assests/desert.jpg'
 import frika from '@/assests/Frika_button.png'
+import { useTranslations } from "next-intl"
 const Celebrating = () => {
   const achievements = [
     {
@@ -26,7 +27,7 @@ const Celebrating = () => {
       subtitle: "Sustainable Tourism Initiative 2022",
     },
   ]
-
+  const title = useTranslations("about");
   return (
     <section className=" py-16 px-4 sm:px-6 lg:px-8 font-nunito">
       <div className="max-w-7xl mx-auto">
@@ -37,10 +38,10 @@ const Celebrating = () => {
             <div className="space-y-4"> 
               <div className="flex items-center gap-3">
             <Image src={frika} alt="icon" height={32} width={32} className="h-8 w-8" />
-                <span className="text-orange-500 font-medium text-lg">Celebrating Success</span>
+                <span className="text-orange-500 font-medium text-lg">{title("celebrating")}</span>
               </div>
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-balance">
-                Sand trail&apos;s proud achievements
+              {title("celebratingProud")}
               </h2>
             </div>
 
@@ -76,7 +77,7 @@ const Celebrating = () => {
             {/* Bottom Left - Text Overlay */}
             <div className="relative bg-gradient-to-br from-amber-900 to-orange-900 rounded-2xl flex items-center justify-center p-6">
               <p className="text-white text-center font-medium text-lg leading-relaxed">
-                Each award is a testament to our passion and dedication.
+               {title("imageText")}
               </p>
             </div>
 

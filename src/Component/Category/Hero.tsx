@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+'use client'
 import { Calendar, ChevronDown,MountainSnow, Search, User } from "lucide-react"
 import { Modal } from "antd" // Import Ant Design Modal and Button
 import scene from '@/assests/scene.jpg'
+import { useTranslations } from "next-intl";
 // src/types/activity.ts
 export enum Activity {
   DUNE_BASHING = "Dune Bashing",
@@ -20,7 +21,8 @@ export enum Activity {
 }
 
 export default function HeroSection({setIsModalVisible,isModalVisible,setSelectedDate,selectedDate,setChildCount,childCount,setAdults,adults,setSelectedActivity,selectedActivity,handleSearch}:any) {
-
+  const title = useTranslations("category");
+  const nav = useTranslations("nav");
 
   // Show modal
   const showModal = () => {
@@ -56,14 +58,14 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
         {/* Main Heading */}
         <h1 className="mb-4 text-4xl font-bold text-white drop-shadow-lg md:text-5xl lg:text-6xl">
-          Desert Safari Tour Dubai
+      {title("title")}
         </h1>
 
         {/* Breadcrumb */}
         <nav className="mb-16 flex items-center space-x-2 text-lg">
-          <span className="text-white">Home</span>
+          <span className="text-white">{nav("home")}</span>
           <span className="text-white">{">"}</span>
-          <span className="text-orange-500 font-bold">Category</span>
+          <span className="text-orange-500 font-bold">{nav("category")}</span>
         </nav>
 
         {/* Booking Form */}

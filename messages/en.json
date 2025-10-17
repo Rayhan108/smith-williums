@@ -59,7 +59,7 @@
  
   },
   "category": {
-    "title": "Desert Safari Tour Dubai",
+    "title": "Desert Safari Tour Dubai", 
     "filters": {
       "activity": "Select Activity",
       "date": "Date",
@@ -100,9 +100,20 @@
   },
   "about": {
     "title": "Quality Desert Tours",
+    "about": "About",
+    "celebrating": "Celebrating Success",
+    "celebratingProud": "Sand trail's proud achievements",
+     "imageText": "Each award is a testament to our passion and dedication.",
+    "aboutUs": "About Us",
+    "mission": "Mission",
+    "vision": "Vision",
+    "contactUs": "Contact us at",
+    "join": "Join 99k adventures who&apos;ve experienced unforgettable desert safaris. Be part of the journey — create your story today",
+    "drivenUs": "What Drivers Us",
     "missionTitle": "Our Values, Mission & Vision",
-    "mission": "Our mission is to create unforgettable desert adventures that connect travelers with the beauty and spirit of the Arabian desert.",
-    "vision": "Our vision is to be the leading desert safari experience provider in Dubai, recognized globally for excellence, authenticity, and sustainability.",
+    "aboutDet": "A Dubai Desert Safari is more than just a tour—it's a journey into the heart of the Arabian wilderness, where nature, adventure, and tradition meet under a vast, sun-kissed sky. Imagine leaving behind the towering skyscrapers and bustling streets of Dubai and stepping into a world of endless golden dunes that stretch as far as the eye can see.",
+    "missionDet": "Our mission is to create unforgettable desert adventures that connect travelers with the beauty, culture, and spirit of the Arabian desert. We strive to deliver exceptional service, thrilling activities.",
+    "visionDet": "Our vision is to be the leading desert safari experience provider in Dubai, recognized globally for our commitment to excellence, authenticity, and sustainability",
     "awardsTitle": "Sand Trail’s Proud Achievements"
   },
   "blogs": {

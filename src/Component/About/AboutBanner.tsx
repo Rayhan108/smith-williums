@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { FaChevronRight } from "react-icons/fa"
+
 import about from '@/assests/aboutHero.jpg'
+import { useTranslations } from "next-intl";
 
 export default function AboutBanner() {
-  const title = "About"
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
 
-  ]
+    const title = useTranslations("about");
+    const nav = useTranslations("nav");
+
  
 
   return (
@@ -29,32 +28,17 @@ export default function AboutBanner() {
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
         {/* Main Title */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-          {title}
+          {title("about")}
         </h1>
 
         {/* Breadcrumbs */}
-        <nav className="flex items-center space-x-2 text-sm md:text-base">
-          {breadcrumbs.map((crumb, index) => (
-            <div key={index} className="flex items-center">
-              {index > 0 && <FaChevronRight className="text-white mx-2 text-xs" />}
-              <span
-                className={`${
-                  index === breadcrumbs.length - 1
-                    ? "text-orange-500 font-semibold"
-                    : "text-white hover:text-orange-300 transition-colors"
-                } drop-shadow-md`}
-              >
-                {crumb.href ? (
-                  <a href={crumb.href} className="hover:underline">
-                    {crumb.label}
-                  </a>
-                ) : (
-                  crumb.label
-                )}
-              </span>
-            </div>
-          ))}
+      {/* Breadcrumb */}
+        <nav className="mb-16 flex items-center space-x-2 text-lg">
+          <span className="text-white">{nav("home")}</span>
+          <span className="text-white">{">"}</span>
+          <span className="text-orange-500 font-bold">{nav("category")}</span>
         </nav>
+
       </div>
     </div>
   )

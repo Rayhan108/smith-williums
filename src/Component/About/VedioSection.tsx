@@ -12,6 +12,7 @@ import sandRide from "@/assests/sand-ride.jpg";
 import bikeRide from "@/assests/bike-ride.jpg";
 import camel from "@/assests/camel.jpg";
 import DOMPurify from "isomorphic-dompurify";
+import { useTranslations } from "next-intl";
 export default function VedioSection() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
@@ -32,7 +33,8 @@ export default function VedioSection() {
   const [aboutHtml, setAboutHtml] = useState<string>("");
   const [aboutLoading, setAboutLoading] = useState<boolean>(false);
   const [aboutError, setAboutError] = useState<string | null>(null);
-
+    const title = useTranslations("about");
+    const t = useTranslations("buttons");
   useEffect(() => {
     let mounted = true;
 
@@ -88,11 +90,11 @@ export default function VedioSection() {
                 width={32}
                 className="h-8 w-8"
               />
-              <h3 className="text-orange-500 text-lg font-medium">About Us</h3>
+              <h3 className="text-orange-500 text-lg font-medium">    {title("aboutUs")}</h3>
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Quality desert tours
+              {title("title")}
             </h2>
 
             {/* <p className="text-gray-600 text-lg leading-relaxed mb-6">
@@ -161,9 +163,7 @@ export default function VedioSection() {
               </div>
               <div className="text-gray-600 max-w-sm">
                 <p className="text-sm leading-relaxed">
-                  Join 99k adventures who&apos;ve experienced unforgettable
-                  desert safaris. Be part of the journey — create your story
-                  today
+                 {title("join")}
                 </p>
               </div>
             </div>
@@ -221,13 +221,13 @@ export default function VedioSection() {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-8">
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
             <RiCustomerService2Fill className="text-lg" />
-            Get In Touch
+           {t("getInTouch")}
           </button>
 
           <div className="flex items-center gap-3 text-gray-600">
             <FaPhone className="text-orange-500" />
             <div>
-              <p className="text-sm font-medium">Contact us at</p>
+              <p className="text-sm font-medium">{title("contactUs")}</p>
               <p className="text-lg font-semibold">(+971)506800227</p>
             </div>
           </div>

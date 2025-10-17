@@ -5,8 +5,10 @@ import { TbSun } from "react-icons/tb"
 import { TbLeaf } from "react-icons/tb"
 import running from "@/assests/running.jpg"
 import bg from "@/assests/looper-bg.png"
+import { useTranslations } from "next-intl"
 
 export default function WhatDrivesUs() {
+     const title = useTranslations("about");
   return (
     <section className="relative bg-[#692a0f] overflow-hidden py-16 lg:py-20 font-nunito">
       {/* Wave Background */}
@@ -39,20 +41,17 @@ export default function WhatDrivesUs() {
             {/* Header with Icon */}
             <div className="flex items-center gap-2">
               <TbSun className="w-6 h-6 text-orange-400" />
-              <h2 className="text-orange-400 text-base font-medium tracking-wide">What Drivers Us</h2>
+              <h2 className="text-orange-400 text-base font-medium tracking-wide">{title("drivenUs")}</h2>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl font-bold text-white leading-snug">
-              Our values, mission & Vison
+             {title("missionTitle")}
             </h1>
 
             {/* Description */}
             <p className="text-amber-100/90 text-lg leading-relaxed">
-              A Dubai Desert Safari is more than just a tour—it&apos;s a journey into the heart of the Arabian wilderness,
-              where nature, adventure, and tradition meet under a vast, sun-kissed sky. Imagine leaving behind the
-              towering skyscrapers and bustling streets of Dubai and stepping into a world of endless golden dunes that
-              stretch as far as the eye can see.
+            {title("aboutDet")}
             </p>
 
             {/* Mission and Vision side by side */}
@@ -63,12 +62,10 @@ export default function WhatDrivesUs() {
                   <div className="p-2 rounded-md bg-white/10 border border-white/20">
                    <TbLeaf className="w-5 h-5 text-emerald-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Mission</h3>
+                  <h3 className="text-xl font-bold text-white">  {title("mission")}</h3>
                 </div>
                 <p className="text-amber-100/80 text-sm leading-relaxed">
-                  Our mission is to create unforgettable desert adventures that connect travelers with the beauty,
-                  culture, and spirit of the Arabian desert. We strive to deliver exceptional service, thrilling
-                  activities.
+                 {title("missionDet")}
                 </p>
               </div>
 
@@ -78,11 +75,10 @@ export default function WhatDrivesUs() {
                   <div className="p-2 rounded-md bg-white/10 border border-white/20">
                     <TbLeaf className="w-5 h-5 text-emerald-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Vision</h3>
+                  <h3 className="text-xl font-bold text-white">  {title("mission")}</h3>
                 </div>
                 <p className="text-amber-100/80 text-sm leading-relaxed">
-                  Our vision is to be the leading desert safari experience provider in Dubai, recognized globally for
-                  our commitment to excellence, authenticity, and sustainability.
+                  {title("visionDet")}
                 </p>
               </div>
             </div>
