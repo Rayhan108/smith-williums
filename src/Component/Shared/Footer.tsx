@@ -1,13 +1,17 @@
+'use client'
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 const Footer = () => {
+    const title = useTranslations("footer");
+    const t = useTranslations("buttons");
   return (
     <footer className="bg-[#053658] text-white py-12 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* WHY CITYLAILA Section */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">WHY CITYLAILA?</h3>
+            <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">{title("why.title")}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="text-blue-400 mt-1">→</div>
@@ -53,7 +57,7 @@ const Footer = () => {
                 </div>
               </div>
               <button className="bg-[#0B78C4] hover:bg-blue-700 text-white px-6 py-2 rounded text-sm font-medium transition-colors duration-200 flex items-center gap-2">
-                Get In Touch
+              {t("getInTouch")}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -68,7 +72,7 @@ const Footer = () => {
 
           {/* CONNECT WITH US Section */}
       <div className="space-y-6">
-  <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">CONNECT WITH US</h3>
+  <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">{title("connect.title")}</h3>
   <div className="space-y-2">
     <div className="flex items-start gap-3">
       <svg className="w-5 h-5 text-blue-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,17 +151,17 @@ const Footer = () => {
 
           {/* IMPORTANT LINKS Section */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">IMPORTANT LINKS</h3>
+            <h3 className="text-lg font-semibold mb-6 border-b border-slate-600 pb-2">{title("links.title")}</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="text-blue-400">→</div>
-                <Link href="#" className="text-sm hover:text-blue-400 transition-colors duration-200">
+                <Link href="/about" className="text-sm hover:text-blue-400 transition-colors duration-200">
                   About Us
                 </Link>
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-blue-400">→</div>
-                <Link href="#" className="text-sm hover:text-blue-400 transition-colors duration-200">
+                <Link href="/" className="text-sm hover:text-blue-400 transition-colors duration-200">
                   FAQs
                 </Link>
               </div>
@@ -181,7 +185,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-blue-400">→</div>
-                <Link href="#" className="text-sm hover:text-blue-400 transition-colors duration-200">
+                <Link href="/contact" className="text-sm hover:text-blue-400 transition-colors duration-200">
                   Contact Us
                 </Link>
               </div>
@@ -196,7 +200,7 @@ const Footer = () => {
             {/* Call Now Button */}
             <div className="pt-6">
               <button className="bg-[#FB5A10] hover:bg-orange-600 text-white px-6 py-2 rounded text-sm font-medium transition-colors duration-200 flex items-center gap-2">
-                Call Now
+                {t("callNow")}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
