@@ -3,10 +3,11 @@
 
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { useTranslations } from "next-intl";
 
 export default function FAQSection({faq}:any) {
   const [openIndex, setOpenIndex] = useState<number>(0) // First item open by default
-
+  const title = useTranslations("home");
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index)
   }
@@ -14,9 +15,9 @@ console.log("FAQ-------------->",faq);
   return (
     <section className="py-16 px-4 md:px-8 max-w-6xl mx-auto font-nunito">
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">FAQs- Dubai Tours by Oasis Palm Tourism</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{title("faqTitle")}</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Got question about our Dubai tours? Find quick answer on booking, pickups and more.
+          {title("faq")}
         </p>
       </div>
 

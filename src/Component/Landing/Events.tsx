@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslations } from "next-intl";
+import React from "react";
 
 
 
@@ -21,15 +22,12 @@ export default function ExclusiveArrangements({events}:any) {
     <section className="w-full py-12 px-4 md:px-8 font-nunito">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance">
-            Exclusive arrangement for Corporate, 
-            <br />
-            individual, special day or personalize
-
-   {/* {title("eventTitle")}      */}
-        </h2>
-        </div>
+<div className="text-center mb-12">
+  <h2
+    className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance"
+    dangerouslySetInnerHTML={{ __html: title("eventTitle") }}
+  />
+</div>
 
         {/* Swiper Slider */}
         <Swiper

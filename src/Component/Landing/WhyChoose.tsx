@@ -6,8 +6,10 @@ import vector from '@/assests/vector2.png'
 import elephant from '@/assests/elephant.png'
 import design from '@/assests/design.png'
 import frika from '@/assests/Frika_button.png'
+import { useTranslations } from "next-intl"
 
 export default function WhyChoose() {
+      const title = useTranslations("home");
   return (
     <section className="relative  py-16 md:py-24 overflow-hidden font-nunito">
       {/* Decorative golden particles */}
@@ -30,14 +32,17 @@ export default function WhyChoose() {
 <Image src={frika} alt="icon" height={100} width={100} className="h-12 w-12"/>
       </div>
       <div className="text-2xl text-[#FB5A10]">
-        Amazing Features
+    {title("amazingFeatures")}
       </div>
     </div>
             {/* Main Heading */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1632] leading-tight">
-              Explore Dubai with Oasis Tours
-            </h2>
-
+         
+<div className="">
+  <h2
+    className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1632] leading-tight"
+    dangerouslySetInnerHTML={{ __html: title("exploreDubai") }}
+  />
+</div>
             {/* Main Image with Decorative Vector */}
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden z-30">
@@ -63,16 +68,11 @@ export default function WhyChoose() {
           {/* Right Column */}
           <div className="space-y-8 ml-16 lg:mt-0 mt-16 w-[70%]">
             <h3 className="text-3xl md:text-4xl font-bold text-[#1C1632]">
-              Why Choose Oasis Palm Tourism
+          {title("whyChoose")}
             </h3>
 
             <p className="text-gray-600 text-lg leading-relaxed">
-              We shape the future of travels at OASIS PALM tourism. It seemed
-              impossible when we had a vision, but after 15 years of working
-              with our professional tour guides, the journey became easier.
-              Today OASIS PALM sells Dubai&apos;s adventure and experience with
-              expert tour operators help. We know all adventure seeker&apos;s
-              needs and work on fulfilling their needs.
+           {title("whyChooseDet")}
             </p>
 
             {/* Orange separator line */}
