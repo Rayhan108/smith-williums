@@ -119,10 +119,11 @@ export function Navbar({ locale }: { locale: string }) {
               className="flex items-center text-orange-500 hover:text-orange-600 font-medium"
               onClick={toggleCurrencyDropdown}
             >
-              {selectedCurrency}
+              {/* {selectedCurrency} */}
+              AED
               <ChevronDown className="ml-1 h-4 w-4" />
             </button>
-            {isCurrencyOpen && (
+            {/* {isCurrencyOpen && (
               <div className="absolute bg-white shadow-lg border border-gray-200 mt-1 w-32 rounded-md text-sm text-gray-700">
                 <button
                   onClick={() => handleCurrencySelect("AED")}
@@ -130,14 +131,14 @@ export function Navbar({ locale }: { locale: string }) {
                 >
                   AED
                 </button>
-                {/* <button
+                <button
                   onClick={() => handleCurrencySelect("USD")}
                   className="block px-3 py-2 hover:bg-gray-100"
                 >
                   USD
-                </button> */}
+                </button>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Language */}
@@ -197,32 +198,33 @@ export function Navbar({ locale }: { locale: string }) {
             ))}
 
             {/* Currency (Mobile) */}
-            <div className="flex flex-col space-y-2 px-2">
-              <div className="text-sm text-black font-medium">Currency</div>
-              <button
-                onClick={toggleCurrencyDropdown}
-                className="flex items-center text-orange-500 border border-orange-200 px-3 py-2 rounded-md w-full text-left hover:bg-orange-50"
-              >
-                {selectedCurrency}
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-              {isCurrencyOpen && (
-                <div className="absolute z-30 bg-white shadow-lg border border-gray-200 mt-1 w-full rounded-md text-sm text-gray-700">
-                  <button
-                    onClick={() => handleCurrencySelect("AED")}
-                    className="block px-3 py-2 hover:bg-gray-100"
-                  >
-                    AED
-                  </button>
-                  {/* <button
-                    onClick={() => handleCurrencySelect("USD")}
-                    className="block px-3 py-2 hover:bg-gray-100"
-                  >
-                    USD
-                  </button> */}
-                </div>
-              )}
-            </div>
+           
+          <div className="relative">
+            <button
+              className="flex items-center text-orange-500 hover:text-orange-600 font-medium"
+              onClick={toggleCurrencyDropdown}
+            >
+              {/* {selectedCurrency} */}
+              AED
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            {/* {isCurrencyOpen && (
+              <div className="absolute bg-white shadow-lg border border-gray-200 mt-1 w-32 rounded-md text-sm text-gray-700">
+                <button
+                  onClick={() => handleCurrencySelect("AED")}
+                  className="block px-3 py-2 hover:bg-gray-100"
+                >
+                  AED
+                </button>
+                <button
+                  onClick={() => handleCurrencySelect("USD")}
+                  className="block px-3 py-2 hover:bg-gray-100"
+                >
+                  USD
+                </button>
+              </div>
+            )} */}
+          </div>
 
             {/* Language (Mobile) */}
             <div className="flex flex-col space-y-2 px-2">
