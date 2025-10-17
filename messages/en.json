@@ -118,6 +118,7 @@
   },
   "blogs": {
     "title": "Blogs",
+    
     "articles": {
       "guide": "The Ultimate Guide to Dubai Desert Safari: What to Expect",
       "morningVsEvening": "Morning vs. Evening Desert Safari: Which One Should You Choose?",
@@ -129,6 +130,7 @@
   "contact": {
     "title": "Contact Us",
     "getInTouch": "Get In Touch",
+    "contactDet":"We are committed to processing the information in order to contact you and talk about your project.",
     "form": {
       "name": "Name",
       "email": "Email",

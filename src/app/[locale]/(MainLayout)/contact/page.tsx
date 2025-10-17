@@ -6,6 +6,7 @@ import React from 'react';
 
 const ContactPage =async () => {
     const faq = await getAllFaq();
+    
     return (
         <div>
             <ContactBanner/>

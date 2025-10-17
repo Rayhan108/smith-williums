@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { message as antdMessage } from "antd"
+import { useTranslations } from "next-intl"
 
 interface ContactFormData {
   name: string
@@ -17,6 +18,7 @@ const ContactForm = () => {
     formState: { errors },
     reset,
   } = useForm<ContactFormData>()
+    const title = useTranslations("contact");
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -60,27 +62,27 @@ const ContactForm = () => {
 
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">{title("getInTouch")}</h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">Contact Us</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{title("title")}</h3>
               <p className="text-gray-600 text-lg leading-relaxed">
-                We are committed to processing the information in order to contact you and talk about your project.
+               {title("contactDet")}
               </p>
             </div>
 
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-6 h-6 text-orange-500">
+                <div className="w-6 h-6 text-orange-500">  
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                   </svg>
                 </div>
-                <span className="text-gray-700 text-lg">hello@desertlaila.com</span>
+                <span className="text-gray-700 text-lg">{title("emailAddress")}</span>
               </div>
 
               <div className="flex items-start gap-4">
@@ -90,8 +92,8 @@ const ContactForm = () => {
                   </svg>
                 </div>
                 <div className="text-gray-700 text-lg">
-                  <div>4074 Ebert Summit Suite 375</div>
-                  <div>Lake Leonardchester</div>
+                <div>{title("address")}</div>
+                  <div>{title("address")}</div>
                 </div>
               </div>
 
@@ -102,8 +104,8 @@ const ContactForm = () => {
                   </svg>
                 </div>
                 <div className="text-gray-700 text-lg">
-                  <div>(+971)506800227</div>
-                  <div>(+971)44511625</div>
+                  <div>{title("phone")}</div>
+                  <div>{title("phone")}</div>
                 </div>
               </div>
             </div>
