@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function DesertBookingForm() {
   const bookingState = useAppSelector(selectBooking);
+  console.log("booking state----->",bookingState);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [readonlyData, setReadonlyData] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -100,12 +101,12 @@ const router = useRouter()
         <p>
           <strong>Currency:</strong> {readonlyData.currency}
         </p>
-        <p>
+        {/* <p>
           <strong>Base Tour Price:</strong> AED {readonlyData.pricing?.tour_price}
         </p>
         <p>
           <strong>Additional Price:</strong> AED {readonlyData.pricing?.additional_price}
-        </p>
+        </p> */}
         <p className="font-bold text-orange-600">
           <strong>Grand Total:</strong> AED {readonlyData.pricing?.grand_total}
         </p>

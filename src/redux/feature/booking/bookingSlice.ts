@@ -20,7 +20,6 @@ export interface Pricing {
   tour_price: number;
   additional_price: number;
 
-  // 👇 Add these new fields
   total_before_discount: number;
   discount_percent: number;
   discount_amount: number;
