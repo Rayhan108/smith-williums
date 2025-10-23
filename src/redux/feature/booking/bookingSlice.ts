@@ -19,8 +19,15 @@ export interface SelectedTourOption {
 export interface Pricing {
   tour_price: number;
   additional_price: number;
+
+  // 👇 Add these new fields
+  total_before_discount: number;
+  discount_percent: number;
+  discount_amount: number;
+
   grand_total: number;
 }
+
 
 export interface SetBookingPayload {
   // from data (params)
@@ -66,8 +73,14 @@ const initialState: BookingState = {
   children: 0,
   currency: "AED",
   tour_options: [],
-
-  pricing: { tour_price: 0, additional_price: 0, grand_total: 0 },
+pricing: { 
+  tour_price: 0, 
+  additional_price: 0, 
+  total_before_discount: 0,
+  discount_percent: 0,
+  discount_amount: 0,
+  grand_total: 0 
+},
 
  // personal info defaults (empty)
   customer_name: "",

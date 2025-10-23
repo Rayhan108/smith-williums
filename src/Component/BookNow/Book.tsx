@@ -6,41 +6,37 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { FaCalendarAlt, FaMinus, FaPlus } from "react-icons/fa";
 import { useAppDispatch } from "@/redux/hooks";
 import { setBooking } from "@/redux/feature/booking/bookingSlice";
-
 import { useRouter } from "next/navigation";
 
-
 // ---------- Types ----------
-// Add alongside your other types
 type Availability = { start: string; end: string };
 
 type IncomingTourOption = {
-  id?: string ;
+  id?: string;
   name: string;
   amount: number;
   currency?: string;
   quantity?: number;
 };
 
-// ✅ data now includes the fields you read in onSubmit
 type PackageDataFromParams = {
-  _id:string
+  _id: string;
   base_price?: number;
   currency?: string;
   tour_options?: IncomingTourOption[];
 
-  // extra fields used in onSubmit:
   title?: string;
   images?: string[];
   location?: string;
   availability?: Availability;
   drop_off?: string;
   pickup?: string;
+
+  discount?: number;
+  discount_price?: { amount?: number };
 };
 
-type BookProps = {
-  data?: PackageDataFromParams;
-};
+type BookProps = { data?: PackageDataFromParams };
 
 type FormTourOption = {
   id: string;
@@ -69,26 +65,20 @@ const formatPrice = (amount: number, currencyCode: string) => {
       maximumFractionDigits: 2,
     }).format(amount);
   } catch {
-    // Fallback if currency code is unknown/invalid
     return `${currencyCode || "AED"} ${amount.toFixed(2)}`;
   }
 };
 
+// ---------- Component ----------
 export default function Book({ data }: BookProps) {
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
 
   const basePrice = Number(data?.base_price ?? 2500);
   const currency = data?.currency ?? "AED";
   const tourOptionsData = data?.tour_options ?? [];
-const router = useRouter()
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    getValues,
-  } = useForm<FormValues>({
+
+  const { control, handleSubmit, watch, setValue, getValues } = useForm<FormValues>({
     mode: "onChange",
     defaultValues: {
       date: "2025-07-04",
@@ -115,13 +105,17 @@ const router = useRouter()
   const formCurrency = watch("currency");
   const watchedOptions = watch("tour_options");
 
-  // Selected rows only (for totals and submit)
   const selectedOptions = useMemo(
     () => watchedOptions.filter((o) => o.selected),
     [watchedOptions]
   );
 
-  // Totals based on SELECTED ONLY
+  const hasSelectedOption = useMemo(
+    () => selectedOptions.length > 0,
+    [selectedOptions]
+  );
+
+  // Totals
   const tourTotal = useMemo(
     () => selectedOptions.reduce((sum, o) => sum + Number(o.amount || 0), 0),
     [selectedOptions]
@@ -136,7 +130,22 @@ const router = useRouter()
     [selectedOptions]
   );
 
-  const grandTotal = useMemo(() => tourTotal + additionTotal, [tourTotal, additionTotal]);
+  const discountPercent = Number(data?.discount ?? 0);
+
+  const totalBeforeDiscount = useMemo(
+    () => tourTotal + additionTotal,
+    [tourTotal, additionTotal]
+  );
+
+  const discountAmount = useMemo(
+    () => (totalBeforeDiscount * discountPercent) / 100,
+    [totalBeforeDiscount, discountPercent]
+  );
+
+  const amountAfterDiscount = useMemo(
+    () => Math.max(0, totalBeforeDiscount - discountAmount),
+    [totalBeforeDiscount, discountAmount]
+  );
 
   // Counters
   const incDecCounter = (field: "adults" | "children", delta: number) => {
@@ -145,7 +154,7 @@ const router = useRouter()
     setValue(field, next, { shouldValidate: true, shouldDirty: true });
   };
 
-  // Option toggles / qty
+  // Option handlers
   const toggleOption = (index: number) => {
     const item = getValues(`tour_options.${index}`);
     update(index, { ...item, selected: !item.selected });
@@ -153,14 +162,12 @@ const router = useRouter()
 
   const changeQty = (index: number, delta: number) => {
     const item = getValues(`tour_options.${index}`);
-    // guard: keep disabled behavior when not selected; remove this line if you want qty editable before selection
     if (!item.selected) return;
     const currentQty = Math.max(1, Number(item.quantity ?? 1));
     const nextQty = Math.max(1, currentQty + delta);
     update(index, { ...item, quantity: nextQty });
   };
 
-  // Calendar open helper
   const dateRef = useRef<HTMLInputElement | null>(null);
   const openNativeDatepicker = () => {
     const el = dateRef.current;
@@ -170,63 +177,74 @@ const router = useRouter()
     else el.focus();
   };
 
-  // Submit → ONLY SELECTED options go to Redux (and keep `selected: true` to satisfy the slice type)
-const onSubmit = (values: FormValues) => {
-  // selected only
-  const selectedOnly = values.tour_options
-    .filter((o) => o.selected)
-    .map(({ id, name, amount, currency, quantity }) => ({
-      id,
-      name,
-      amount: Number(amount || 0),
-      currency: currency || values.currency,
-      quantity: Math.max(1, Number(quantity ?? 1)),
-      selected: true as const, // <-- ok with your current SelectedTourOption
-    }));
+  // ---------- Submit ----------
+  const onSubmit = (values: FormValues) => {
+    const selectedOnly = values.tour_options
+      .filter((o) => o.selected)
+      .map(({ id, name, currency, quantity }) => ({
+        id,
+        name,
+        // ✅ send discounted amount
+        amount: Number(amountAfterDiscount || 0),
+        currency: currency || values.currency,
+        quantity: Math.max(1, Number(quantity ?? 1)),
+        selected: true as const,
+      }));
 
-  // totals from selected
-  const tour_price = selectedOnly.reduce((sum, o) => sum + o.amount, 0);
-  const additional_price = selectedOnly.reduce(
-    (sum, o) => sum + (o.quantity - 1) * o.amount,
-    0
-  );
-  const grand_total = tour_price + additional_price;
+    const tour_price = selectedOnly.reduce((sum, o) => sum + o.amount, 0);
+    const additional_price = selectedOnly.reduce(
+      (sum, o) => sum + (o.quantity - 1) * o.amount,
+      0
+    );
 
-  // dispatch exactly what the slice expects
-  dispatch(
-    setBooking({
-      // from params (ensure your component prop type includes these fields)
+    const total_before_discount = tour_price + additional_price;
+    const discount_percent = Number(data?.discount ?? 0);
+    const discount_amount = (total_before_discount * discount_percent) / 100;
+
+    const grand_total =
+      Number(amountAfterDiscount) > 0
+        ? amountAfterDiscount
+        : Math.max(0, total_before_discount - discount_amount);
+
+    dispatch(
+      setBooking({
         bookingId: data?._id ?? "",
-      title: data?.title ?? "",
-      images: Array.isArray(data?.images) ? (data!.images as string[]) : [],
-      location: data?.location ?? "",
-      availability: data?.availability
-        ? { start: data.availability.start, end: data.availability.end }
-        : undefined,
-      drop_off: data?.drop_off ?? "",
-      pickup: data?.pickup ?? "",
+        title: data?.title ?? "",
+        images: Array.isArray(data?.images) ? data.images : [],
+        location: data?.location ?? "",
+        availability: data?.availability
+          ? { start: data.availability.start, end: data.availability.end }
+          : undefined,
+        drop_off: data?.drop_off ?? "",
+        pickup: data?.pickup ?? "",
 
-      // from form
-      date: values.date,
-      adults: values.adults,
-      children: values.children,
-      currency: values.currency,
-      tour_options: selectedOnly,
+        date: values.date,
+        adults: values.adults,
+        children: values.children,
+        currency: values.currency,
+        tour_options: selectedOnly,
 
-      // pricing snapshot
-      pricing: {
-        tour_price,
-        additional_price,
-        grand_total,
-      },
-    })
-  );
-router.push('/personalInfo')
-};
+        pricing: {
+          tour_price,
+          additional_price,
+          total_before_discount,
+          discount_percent,
+          discount_amount,
+          grand_total,
+        },
+      })
+    );
 
+    router.push("/personalInfo");
+  };
 
+  // ---------- JSX ----------
   return (
-    <form className="max-w-7xl mx-auto p-4 bg-white" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className="max-w-7xl mx-auto p-4 bg-white"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       {/* Header */}
       <div className="bg-pink-50 p-4 rounded-lg mb-6">
         <h1 className="text-xl font-semibold text-gray-800 mb-4">
@@ -277,7 +295,6 @@ router.push('/personalInfo')
                 type="button"
                 onClick={() => incDecCounter("adults", -1)}
                 className="p-2 hover:bg-gray-100"
-                aria-label="Decrease adults"
               >
                 <FaMinus className="text-xs" />
               </button>
@@ -286,28 +303,20 @@ router.push('/personalInfo')
                 type="button"
                 onClick={() => incDecCounter("adults", +1)}
                 className="p-2 hover:bg-gray-100"
-                aria-label="Increase adults"
               >
                 <FaPlus className="text-xs" />
               </button>
             </div>
-            <Controller
-              control={control}
-              name="adults"
-              rules={{ min: { value: 1, message: "At least 1 adult" } }}
-              render={({ field }) => <input type="hidden" {...field} value={adults} />}
-            />
           </div>
 
           {/* Children */}
           <div>
-            <label className="block text-sm text-gray-600 mb-1">No of Child (1-11 yrs)</label>
+            <label className="block text-sm text-gray-600 mb-1">No of Child (1–11 yrs)</label>
             <div className="flex items-center border border-gray-300 rounded">
               <button
                 type="button"
                 onClick={() => incDecCounter("children", -1)}
                 className="p-2 hover:bg-gray-100"
-                aria-label="Decrease children"
               >
                 <FaMinus className="text-xs" />
               </button>
@@ -316,24 +325,19 @@ router.push('/personalInfo')
                 type="button"
                 onClick={() => incDecCounter("children", +1)}
                 className="p-2 hover:bg-gray-100"
-                aria-label="Increase children"
               >
                 <FaPlus className="text-xs" />
               </button>
             </div>
-            <Controller
-              control={control}
-              name="children"
-              rules={{ min: { value: 0, message: "Children cannot be negative" } }}
-              render={({ field }) => <input type="hidden" {...field} value={children} />}
-            />
           </div>
         </div>
       </div>
 
-      {/* Customize Tour Options */}
+      {/* Tour Options */}
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-orange-500 mb-4">Customize Tour Options</h2>
+        <h2 className="text-lg font-semibold text-orange-500 mb-4">
+          Customize Tour Options
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="font-semibold">Tour Option</div>
@@ -345,14 +349,15 @@ router.push('/personalInfo')
           {fields.map((field, idx) => {
             const opt = watchedOptions[idx];
             const qty = Math.max(1, Number(opt?.quantity ?? 1));
-            // Show per-row price ALWAYS (even if not selected)
             const perLineTotal = qty * (opt?.amount ?? 0);
             const disabled = !opt?.selected;
 
             return (
               <div
                 key={field.id}
-                className={`grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100 ${disabled ? "opacity-80" : ""}`}
+                className={`grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100 ${
+                  disabled ? "opacity-80" : ""
+                }`}
               >
                 <div className="flex items-center">
                   <input
@@ -360,24 +365,29 @@ router.push('/personalInfo')
                     checked={!!opt?.selected}
                     onChange={() => toggleOption(idx)}
                     className="mr-2"
-                    aria-label={`Toggle ${opt?.name}`}
                   />
                   <div>
                     <div className="font-medium">{opt?.name}</div>
                     <div className="text-orange-500 text-xs">Package Details</div>
                     <div className="text-xs text-gray-500">
-                      Price per {opt?.name}: {formatPrice(opt?.amount ?? 0, opt?.currency ?? formCurrency)}
+                      Price per {opt?.name}:{" "}
+                      {formatPrice(opt?.amount ?? 0, opt?.currency ?? formCurrency)}
                     </div>
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <div className={`flex items-center justify-center border border-gray-300 rounded w-28 mx-auto ${disabled ? "bg-gray-50" : ""}`}>
+                  <div
+                    className={`flex items-center justify-center border border-gray-300 rounded w-28 mx-auto ${
+                      disabled ? "bg-gray-50" : ""
+                    }`}
+                  >
                     <button
                       type="button"
                       onClick={() => changeQty(idx, -1)}
-                      className={`p-1 hover:bg-gray-100 ${disabled ? "pointer-events-none opacity-50" : ""}`}
-                      aria-label={`Decrease ${opt?.name} quantity`}
+                      className={`p-1 hover:bg-gray-100 ${
+                        disabled ? "pointer-events-none opacity-50" : ""
+                      }`}
                     >
                       <FaMinus className="text-xs" />
                     </button>
@@ -385,8 +395,9 @@ router.push('/personalInfo')
                     <button
                       type="button"
                       onClick={() => changeQty(idx, +1)}
-                      className={`p-1 hover:bg-gray-100 ${disabled ? "pointer-events-none opacity-50" : ""}`}
-                      aria-label={`Increase ${opt?.name} quantity`}
+                      className={`p-1 hover:bg-gray-100 ${
+                        disabled ? "pointer-events-none opacity-50" : ""
+                      }`}
                     >
                       <FaPlus className="text-xs" />
                     </button>
@@ -406,29 +417,43 @@ router.push('/personalInfo')
           })}
         </div>
 
-        {/* Totals (selected only) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 py-4 bg-gray-50 rounded">
+        {/* Totals */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 py-4 bg-gray-50 rounded">
           <div className="text-center">
             <div className="text-sm text-gray-600">Tour Total</div>
             <div className="text-xl font-bold text-orange-500">
               {formatPrice(tourTotal, formCurrency)}
             </div>
           </div>
+
           <div className="text-center">
             <div className="text-sm text-gray-600">Additional Price</div>
             <div className="text-xl font-bold text-orange-500">
               {formatPrice(additionTotal, formCurrency)}
             </div>
           </div>
+
+          <div className="text-center">
+            <div className="text-sm text-gray-600">Total</div>
+            <div className="text-xl font-bold text-orange-500">
+              {formatPrice(totalBeforeDiscount, formCurrency)}
+            </div>
+          </div>
+
           <div className="text-center">
             <div className="text-sm text-gray-600">Grand Total</div>
             <div className="text-xl font-bold text-orange-500">
-              {formatPrice(grandTotal, formCurrency)}
+              {formatPrice(
+                !amountAfterDiscount || amountAfterDiscount === 0
+                  ? data?.discount_price?.amount ?? 0
+                  : amountAfterDiscount,
+                formCurrency
+              )}
             </div>
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Buttons */}
         <div className="flex justify-center items-center flex-col sm:flex-row gap-3 mt-6">
           <button
             type="button"
@@ -451,15 +476,17 @@ router.push('/personalInfo')
 
           <button
             type="submit"
-            className="px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
+            disabled={!hasSelectedOption}
+            className={`px-6 py-2 rounded text-white transition-colors ${
+              hasSelectedOption
+                ? "bg-orange-500 hover:bg-orange-600"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}
           >
             Book Now
           </button>
         </div>
       </div>
-
-      {/* Optional preview */}
-      {/* <pre className="text-xs bg-gray-50 p-2 rounded">{JSON.stringify(bookingState, null, 2)}</pre> */}
     </form>
   );
 }
