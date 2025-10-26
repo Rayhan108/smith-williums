@@ -34,7 +34,7 @@ export default function PersonalInfoForm() {
 
     const autocomplete = new google.maps.places.Autocomplete(pickupInputRef.current, {
       types: ["geocode"],
-      componentRestrictions: { country: "AE" }, // restricts to Bangladesh
+      componentRestrictions: { country: "AE" }, 
     });
 
     autocomplete.addListener("place_changed", () => {

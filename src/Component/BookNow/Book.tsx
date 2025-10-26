@@ -313,7 +313,7 @@ export default function Book({ data }: BookProps) {
           <div>
             <label className="block text-sm text-gray-600 mb-1">No of Child (1–11 yrs)</label>
             <div className="flex items-center border border-gray-300 rounded">
-              <button
+              <button 
                 type="button"
                 onClick={() => incDecCounter("children", -1)}
                 className="p-2 hover:bg-gray-100"
@@ -329,6 +329,11 @@ export default function Book({ data }: BookProps) {
                 <FaPlus className="text-xs" />
               </button>
             </div>
+          </div>
+          {/* Base Price */}
+          <div className="ml-5">
+            <p className="block text-sm text-gray-600 mb-1">Base Price</p>
+          <p className="text-xl font-bold text-orange-500 ">AED {data?.discount_price?.amount}</p>
           </div>
         </div>
       </div>
