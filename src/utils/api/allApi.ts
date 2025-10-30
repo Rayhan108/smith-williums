@@ -11,6 +11,6 @@ export const fetchData = async (url:any, options:any) => {
     return data?.data?.result || [];
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw error;  // Rethrow so the caller can handle it
+    throw error;  // Rethrow so the caller can handle itt
   }
 };
