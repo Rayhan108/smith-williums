@@ -3,7 +3,7 @@ import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const API_PROTOCOL = (process.env.NEXT_PUBLIC_API_PROTOCOL as 'http' | 'https') || 'http';
-const API_HOST     = process.env.NEXT_PUBLIC_API_HOST || '10.10.20.13';
+const API_HOST     = process.env.NEXT_PUBLIC_API_HOST || '10.10.20.13'||'13.49.243.231';
 const API_PORT     = process.env.NEXT_PUBLIC_API_PORT || '5000';
 
 const withNextIntl = createNextIntlPlugin();
@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
-
+ domains: ['13.49.243.231'],
     remotePatterns: [
       // Dynamic backend
       {
