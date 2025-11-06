@@ -40,7 +40,7 @@ router.push('/payment')
 
   const handleResend = async () => {
     setIsResending(true)
-    // Simulate API call
+    // Simulate API calls
     setTimeout(() => {
       setIsResending(false)
       console.log("Resend email sent")
