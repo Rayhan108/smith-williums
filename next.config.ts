@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
- domains: ['13.49.243.231'],
+ domains: ['13.49.243.231','backend.desertlaila.com'],
     remotePatterns: [
       // Dynamic backend
       {
